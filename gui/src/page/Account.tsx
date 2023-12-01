@@ -31,11 +31,11 @@ const Account = () => {
     }
 
     return (
-        <div>
+        <div className='account-info-card'>
             <h2>Informacje o Koncie</h2>
-            <p>Email: {account["mail"]}</p>
-            <p>Saldo: {account["money"]}</p>
-            <p>Rola: {account["role"]}</p>
+            <p>Email: {account["accountDto"]["mail"]}</p>
+            <p>Saldo: {account["accountDto"]["money"]}</p>
+            <p>Rola: {account["accountDto"]["role"]}</p>
         </div>
     );
 };
