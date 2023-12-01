@@ -36,6 +36,7 @@ const Account = () => {
             <p>Email: {account["accountDto"]["mail"]}</p>
             <p>Saldo: {account["accountDto"]["money"]}</p>
             <p>Rola: {account["accountDto"]["role"]}</p>
+            <p>Imię: {account["userDto"]["name"]}</p>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -19,6 +20,13 @@ public class NotificationEntity {
     private Long id;
 
     private String title;
-    private String description;
+    private String content;
+    @ManyToMany
+    @JoinTable(
+            name = "NOTIFICATION_TASK",
+            joinColumns = @JoinColumn(name = "notification_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    private Set<TaskEntity> tasks;
 
 }

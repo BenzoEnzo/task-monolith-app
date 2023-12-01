@@ -25,8 +25,8 @@ public class AccountEntity {
     private String mail;
     @Nonnull
     private String password;
-    private BigDecimal money;
-    private Role role;
+    private BigDecimal money = BigDecimal.ZERO;
+    private Role role = Role.USER;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")

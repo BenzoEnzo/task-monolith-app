@@ -16,7 +16,15 @@ const Report = () => {
             });
     }, []);
 
-    // @ts-ignore
+    const handleAcceptReport = (taskId: Number) => {
+        console.log(`Accepted report with ID: ${taskId}`);
+    };
+
+    const handleReadDetails = (taskId: Number) => {
+        console.log(`Read details for report with ID: ${taskId}`);
+    };
+
+
     return (
         <div className="report-container">
             <h2>Lista ogłoszeń</h2>
@@ -27,8 +35,22 @@ const Report = () => {
                         <p>Pay: {task["pay"]}</p>
                         <p>Status: {task["status"]}</p>
                         <p>Description: {task["description"]}</p>
-                        <p>Assignee ID: {task["assignee_id"]}</p>
-                        <p>Creator ID: {task["creator_id"]}</p>
+                        <div className="button-container">
+                            <button
+                                className="accept-button"
+                                onClick={() => handleAcceptReport(task["id"])}
+                            >
+                                Zaakceptuj zgłoszenie
+                            </button>
+                            <button
+                                className="details-button"
+                                onClick={() => handleReadDetails(task["id"])}
+                            >
+                                Czytaj szczegóły
+                            </button>
+                        </div>
+                        {/*<p>Assignee ID: {task["assignee_id"]}</p>*/}
+                        {/*<p>Creator ID: {task["creator_id"]}</p>*/}
                     </li>
                 ))}
             </ul>

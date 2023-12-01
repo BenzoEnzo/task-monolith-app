@@ -74,6 +74,44 @@
     background-color: #f0e68c;
 }
 
+.submenu-closed {
+    display: none;
+}
+
+.submenu-open {
+    display: block;
+    background: #f9f9f9;
+    padding-left: 20px;
+}
+
+.submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    background: #fffacd;
+    border-radius: 4px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.submenu li {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #fffacd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submenu li:hover {
+    background-color: #f0e68c;
+}
+
+/* Ukrywanie rozwijanej listy */
+.right-bar li + .submenu {
+    display: none;
+}
 
 .login-container {
     display: flex;
@@ -168,4 +206,88 @@
 .task-item p {
     margin: 5px 0;
     color: #666;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 10px;
+}
+
+.accept-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.details-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.accept-button, .details-button {
+    width: 150px;
+    height: 55px;
+}
+
+.accept-button:hover, .details-button:hover {
+    opacity: 0.8;
+}
+
+.menu-closed {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+.menu-open {
+    transform: translateX(0%);
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-textarea {
+    height: 150px; /* Domyślna wysokość dla textarea */
+    resize: vertical; /* Zezwól użytkownikowi na zmianę wysokości textarea */
+}
+
+.form-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0ad4e;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.form-button:hover {
+    background-color: #ec971f;
 }

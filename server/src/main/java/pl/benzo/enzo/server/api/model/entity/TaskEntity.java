@@ -33,4 +33,7 @@ public class TaskEntity {
     @ManyToOne
     @JoinColumn(name = "assignee_id")
     private UserEntity assignee;
+
+    @ManyToMany(mappedBy = "tasks")
+    private Set<NotificationEntity> notifications;
 }
