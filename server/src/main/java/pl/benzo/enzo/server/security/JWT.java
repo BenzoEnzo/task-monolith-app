@@ -84,9 +84,9 @@ public class JWT {
         return extractExpiration(token).before(new Date());
     }
 
-    public Boolean validateToken(String token, AccountBuilder accountBuilder) {
+    public Boolean validateToken(String token, String mail) {
         final String username = extractUsername(token);
-        return (username.equals(accountBuilder.getMail()) && !isTokenExpired(token));
+        return (username.equals(mail) && !isTokenExpired(token));
     }
 
 

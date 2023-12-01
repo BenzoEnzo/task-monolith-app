@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.benzo.enzo.server.api.model.dto.AccountBuilder;
 import pl.benzo.enzo.server.api.model.entity.AccountEntity;
 import pl.benzo.enzo.server.api.repository.AccountRepository;
-import pl.benzo.enzo.server.util.Role;
 
 import java.util.Optional;
 
@@ -42,6 +41,7 @@ public class AccountServiceImpl implements AccountService{
             return AccountBuilder
                     .builder()
                     .id(acc.getId())
+                    .mail(acc.getMail())
                     .build();
         }
     }
