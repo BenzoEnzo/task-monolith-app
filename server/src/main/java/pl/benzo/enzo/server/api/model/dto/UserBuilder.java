@@ -7,4 +7,6 @@ import lombok.Data;
 @Builder
 @Data
 public class UserBuilder {
+    private Long id;
+    private String name;
 }

@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.api.service;
+package pl.benzo.enzo.server.api.service.logic;
 
 
 import lombok.RequiredArgsConstructor;
