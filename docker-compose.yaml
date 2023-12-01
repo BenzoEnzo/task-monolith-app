@@ -11,7 +11,7 @@ services:
       MYSQL_USER: 'usr2'
       MYSQL_PASSWORD: '12342'
     ports:
-      - "7772:7772"
+      - "7772:3306"
     volumes:
       - db_data:/var/lib/mysql
 
