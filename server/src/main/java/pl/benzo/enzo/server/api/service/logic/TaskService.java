@@ -7,4 +7,5 @@ import java.util.Set;
 public interface TaskService {
     void create(TaskDto taskDto);
     Set<TaskDto> queryTasks(TaskDto taskDto);
+    Set<TaskDto> queryAllTasks();
 }

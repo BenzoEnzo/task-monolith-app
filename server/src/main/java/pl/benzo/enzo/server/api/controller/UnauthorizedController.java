@@ -57,6 +57,11 @@ public class UnauthorizedController {
     public ResponseEntity<?> queryTasks(@RequestBody TaskDto taskDto){
         return ResponseEntity.status(HttpStatus.OK).body(service.findTasks(taskDto));
     }
+
+    @GetMapping(value = "/query-all-tasks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> queryAllTasks(){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllTasks());
+    }
 }
 
 

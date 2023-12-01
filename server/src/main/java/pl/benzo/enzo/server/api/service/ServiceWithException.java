@@ -37,6 +37,10 @@ public class ServiceWithException {
     public Set<TaskDto> findTasks(TaskDto taskDto) {
         return taskService.queryTasks(taskDto);
     }
+
+    public Set<TaskDto> findAllTasks(){
+        return taskService.queryAllTasks();
+    }
     public void registration(AccountDto accountDto){
         accountService.create(accountDto);
     }

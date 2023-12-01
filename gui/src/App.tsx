@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import Main from "./page/Main";
 import SignPanel from "./page/SignPanel";
+import Report from "./page/Report";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
    <Routes>
        <Route path="/" element={<SignPanel/>}/>
        <Route path="/logged-in" element={<Main/>}/>
+       <Route path="/reports" element={<Report />} />
    </Routes>
       </Router>
   );

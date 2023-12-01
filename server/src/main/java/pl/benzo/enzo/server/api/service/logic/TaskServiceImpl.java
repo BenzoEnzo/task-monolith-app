@@ -54,4 +54,25 @@ public class TaskServiceImpl implements TaskService {
 
         }).collect(Collectors.toSet());
     }
+    @Override
+    public Set<TaskDto> queryAllTasks(){
+        final TaskDto taskDto1 = new TaskDto();
+        return taskRepository.findAll().stream().
+                map(task -> {
+                    taskDto1.setId(task.getId());
+                    taskDto1.setName(task.getName());
+                    taskDto1.setPay(task.getPay());
+                    taskDto1.setStatus(task.getStatus());
+                    taskDto1.setDescription(task.getDescription());
+
+                    if (task.getAssignee() != null) {
+                        taskDto1.setAssignee_id(task.getAssignee().getId());
+                    }
+                    if (task.getCreator() != null) {
+                        taskDto1.setCreator_id(task.getCreator().getId());
+                    }
+
+                    return taskDto1;
+                }).collect(Collectors.toSet());
+    }
 }
