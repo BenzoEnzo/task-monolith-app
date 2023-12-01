@@ -19,6 +19,7 @@ export function validateAccount(mail: string, password: string): Promise<any> {
             }
         })
         .then(data => {
+            sessionStorage.setItem("id", data.id);
             return data;
         });
 }

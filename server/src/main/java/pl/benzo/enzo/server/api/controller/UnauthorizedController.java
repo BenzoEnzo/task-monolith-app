@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
+import pl.benzo.enzo.server.api.service.ManageService;
 import pl.benzo.enzo.server.api.service.ServiceWithException;
 import pl.benzo.enzo.server.security.JWT;
 
@@ -22,6 +23,7 @@ import java.util.Objects;
 public class UnauthorizedController {
     private final ServiceWithException service;
     private final JWT jwt;
+    private final ManageService manageService;
 
     @PostMapping(value = "/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUpUser(@RequestBody AccountDto accountDto){
@@ -61,6 +63,11 @@ public class UnauthorizedController {
     @GetMapping(value = "/query-all-tasks", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> queryAllTasks(){
         return ResponseEntity.status(HttpStatus.OK).body(service.findAllTasks());
+    }
+
+    @PostMapping(value = "/my-account", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> accountMe(@RequestBody AccountDto accountDto){
+        return ResponseEntity.status(HttpStatus.OK).body(manageService.getInformationAboutMe(accountDto));
     }
 }
 

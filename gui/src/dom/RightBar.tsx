@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Report from "../page/Report";
+import Account from "../page/Account";
 
 const RightBar: React.FC = () => {
     const [activeTab, setActiveTab] = useState('account');
@@ -7,7 +8,7 @@ const RightBar: React.FC = () => {
     const renderContent = () => {
         switch (activeTab) {
             case 'account':
-                return <div>Tutaj będą informacje o koncie użytkownika</div>;
+                return <Account />;
             case 'notifications':
                 return <div>Tutaj będą powiadomienia użytkownika</div>;
             case 'reports':

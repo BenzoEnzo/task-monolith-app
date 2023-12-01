@@ -18,6 +18,8 @@ import pl.benzo.enzo.server.security.FilterBeforeRequest;
 public class SecurityConfiguration {
     private static final String API = "/api/unauthorized/**";
 
+    private static final String API_MANAGE = "/api/manage/**";
+
     private static final String SWAGGER_UI = "/swagger-ui/**";
     private static final String V_3 = "/v3/**";
     private final FilterBeforeRequest filterBeforeRequest;
@@ -27,11 +29,13 @@ public class SecurityConfiguration {
         MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
 
         http.csrf(csrfConfigurer ->
-                csrfConfigurer.ignoringRequestMatchers(mvcMatcherBuilder.pattern(API)));
+                csrfConfigurer.ignoringRequestMatchers(mvcMatcherBuilder.pattern(API))
+                        .ignoringRequestMatchers(mvcMatcherBuilder.pattern(API_MANAGE)));
 
         http.authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers(mvcMatcherBuilder.pattern(API)).permitAll()
+                                .requestMatchers(mvcMatcherBuilder.pattern(API_MANAGE)).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern(SWAGGER_UI)).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern(V_3)).permitAll()
                                 .anyRequest().authenticated()
