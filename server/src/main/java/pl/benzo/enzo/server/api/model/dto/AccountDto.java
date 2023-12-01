@@ -18,6 +18,5 @@ public class AccountDto {
     private String mail;
     private BigDecimal money = BigDecimal.valueOf(0);
     private Role role = Role.USER;
-    private UserEntity userRelation;
     private String password;
 }

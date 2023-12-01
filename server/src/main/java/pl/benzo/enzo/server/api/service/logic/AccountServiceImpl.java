@@ -2,9 +2,11 @@ package pl.benzo.enzo.server.api.service.logic;
 
 
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.entity.AccountEntity;
+import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.api.repository.AccountRepository;
 
 import java.util.Optional;
@@ -22,8 +24,10 @@ public class AccountServiceImpl implements AccountService{
             throw new IllegalArgumentException("Konto o podanym mailu już istnieje");
         } else {
             final AccountEntity account = new AccountEntity();
+            final UserEntity user = new UserEntity();
             account.setMail(accountDto.getMail());
             account.setPassword(accountDto.getPassword());
+            account.setUser(user);
             accountRepository.save(account);
         }
     }
@@ -51,7 +55,7 @@ public class AccountServiceImpl implements AccountService{
         Optional.ofNullable(accountDto.getRole()).ifPresent(acc::setRole);
         Optional.ofNullable(accountDto.getMoney()).ifPresent(acc::setMoney);
         Optional.ofNullable(accountDto.getPassword()).ifPresent(acc::setPassword);
-        Optional.ofNullable(accountDto.getUserRelation()).ifPresent(acc::setUserRelation);
+
 
         accountRepository.save(acc);
 

@@ -19,5 +19,6 @@ public class TaskDto {
     private String description;
     private BigDecimal pay;
     private Status status;
-    private UserEntity user;
+    private Long creator_id;
+    private Long assignee_id;
 }

@@ -3,17 +3,16 @@ version: '3.1'
 services:
   db:
     image: mysql:latest
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: '12342'
-      MYSQL_DATABASE: 'monolithpp'
+      MYSQL_DATABASE: 'monolithsz'
       MYSQL_USER: 'usr2'
       MYSQL_PASSWORD: '12342'
     ports:
       - "7772:3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data_2:/var/lib/mysql
 
 volumes:
-  db_data:
+  db_data_2 :

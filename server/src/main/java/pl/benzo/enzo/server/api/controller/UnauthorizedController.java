@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
+import pl.benzo.enzo.server.api.model.dto.TaskDto;
+import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.ServiceWithException;
 import pl.benzo.enzo.server.security.JWT;
 
@@ -39,7 +41,22 @@ public class UnauthorizedController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
           }
         }
+    @PostMapping(value = "/edit-data", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createUserData(@RequestBody UserDto userDto){
+        service.createUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
+    @PostMapping(value = "/create-task", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto){
+        service.createTask(taskDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping(value = "/query-tasks", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> queryTasks(@RequestBody TaskDto taskDto){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findTasks(taskDto));
+    }
 }
 
 

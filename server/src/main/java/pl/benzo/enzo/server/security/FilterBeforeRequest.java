@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import pl.benzo.enzo.server.api.service.basic.AccountServiceBasic;
+import pl.benzo.enzo.server.util.Role;
 
 import java.io.IOException;
 
@@ -23,8 +25,7 @@ import java.io.IOException;
 public class FilterBeforeRequest extends OncePerRequestFilter {
     private final static Logger LOGGER = LoggerFactory.getLogger(FilterBeforeRequest.class);
     private final JWT jwt;
-
-
+    private final AccountServiceBasic accountServiceBasic;
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
 
@@ -40,10 +41,11 @@ public class FilterBeforeRequest extends OncePerRequestFilter {
 
         if (mail != null && jwt.validateToken(token, mail)) {
             final String finalMail = mail;
+            final Role role = accountServiceBasic.findAccountByMail(finalMail).getRole();
             Authentication authToken = new AbstractAuthenticationToken(null) {
                 @Override
                 public Object getCredentials() {
-                    return null;
+                    return role;
                 }
 
                 @Override

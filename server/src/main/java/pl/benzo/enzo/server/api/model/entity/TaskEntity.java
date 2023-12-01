@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import pl.benzo.enzo.server.util.Status;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
@@ -16,20 +18,19 @@ import java.util.List;
 public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id")
     private Long id;
+
     private String name;
     private String description;
     private BigDecimal pay;
     private Status status;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userRelation;
 
-    @ManyToMany
-    @JoinTable(
-            name = "task_notifications",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "notification_id")
-    )
-    private List<NotificationEntity> notifications;
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private UserEntity creator;
+
+    @ManyToOne
+    @JoinColumn(name = "assignee_id")
+    private UserEntity assignee;
 }

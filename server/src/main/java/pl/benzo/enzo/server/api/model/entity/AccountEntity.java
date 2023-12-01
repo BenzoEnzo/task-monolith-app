@@ -17,10 +17,9 @@ import java.math.BigDecimal;
 @Table(name = "ACCOUNTS")
 public class AccountEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private Long id;
-    @OneToOne
-    private UserEntity userRelation;
     @Nonnull
     @Column(unique = true)
     private String mail;
@@ -28,4 +27,8 @@ public class AccountEntity {
     private String password;
     private BigDecimal money;
     private Role role;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private UserEntity user;
 }

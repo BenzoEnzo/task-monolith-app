@@ -2,7 +2,6 @@ package pl.benzo.enzo.server.api.model.dto;
 
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
@@ -10,6 +9,11 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class UserDto {
-    private Long id;
+    private Long user_id;
     private String name;
+
+    public UserDto(Long user_id, String name) {
+        this.user_id = user_id;
+        this.name = name;
+    }
 }

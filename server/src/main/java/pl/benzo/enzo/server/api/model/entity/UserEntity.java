@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
@@ -14,16 +16,18 @@ import java.util.List;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
+
     private String name;
 
-    @OneToMany
-    private List<TaskEntity> tasks;
+    @OneToOne(mappedBy = "user")
+    private AccountEntity account;
 
-    @OneToMany
-    private List<NotificationEntity> notifications;
+    @OneToMany(mappedBy = "creator")
+    private Set<TaskEntity> createdTasks = new HashSet<>();
 
-    @OneToOne
-    private AccountEntity accountRelation;
+    @OneToMany(mappedBy = "assignee")
+    private Set<TaskEntity> assignedTasks = new HashSet<>();
 
 }

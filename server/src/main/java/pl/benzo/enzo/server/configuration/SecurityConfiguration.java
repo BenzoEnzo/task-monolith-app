@@ -17,6 +17,7 @@ import pl.benzo.enzo.server.security.FilterBeforeRequest;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private static final String API = "/api/unauthorized/**";
+
     private static final String SWAGGER_UI = "/swagger-ui/**";
     private static final String V_3 = "/v3/**";
     private final FilterBeforeRequest filterBeforeRequest;

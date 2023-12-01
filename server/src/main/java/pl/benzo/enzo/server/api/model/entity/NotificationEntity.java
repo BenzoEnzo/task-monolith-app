@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+
 @Data
 @RequiredArgsConstructor
 @Entity
@@ -14,14 +15,10 @@ import java.util.List;
 public class NotificationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notification_id")
     private Long id;
+
     private String title;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userRelation;
-
-    @ManyToMany
-    private List<TaskEntity> tasks;
 }
