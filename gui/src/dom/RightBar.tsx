@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Account from "../page/Account";
 import Report from "../page/Report";
 import CreateTask from "../page/CreateTask";
+import PersonalTasks from "../page/PersonalTasks";
 
 const RightBar: React.FC = () => {
     const [activeTab, setActiveTab] = useState('account');
@@ -34,6 +35,8 @@ const RightBar: React.FC = () => {
                 return reportsOpen ? null : <Report />;
             case 'create-task':
                 return reportsOpen ? null : <CreateTask />;
+            case 'personal-tasks':
+                return reportsOpen ? null : <PersonalTasks />;
             case 'assigned':
                 return <div>Tutaj będą zadania przypisane do użytkownika</div>;
             default:
@@ -60,7 +63,7 @@ const RightBar: React.FC = () => {
                         {reportsOpen && (
                             <ul className="submenu">
                                 <li onClick={() => handleTabClick('reports')}>Przeglądaj wszystkie</li>
-                                <li>Przeglądaj własne</li>
+                                <li onClick={() => handleTabClick('personal-tasks')}>Przeglądaj własne</li>
                                 <li onClick={() => handleTabClick('create-task')}>Stwórz nowe</li>
                             </ul>
                         )}

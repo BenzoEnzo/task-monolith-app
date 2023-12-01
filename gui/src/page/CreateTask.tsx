@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './Base.css';
 
-// Definicja typu dla TaskDto
+
 interface TaskDto {
     name: string;
     pay: number;

@@ -11,6 +11,7 @@ import pl.benzo.enzo.server.api.repository.TaskRepository;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
 import pl.benzo.enzo.server.util.Status;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,10 +36,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Set<TaskDto> queryTasks(TaskDto taskDto) {
-        final Set<TaskEntity> taskEntity = taskRepository.findAllByCreator_Id(taskDto.getCreator_id());
+    public List<TaskDto> queryTasks(TaskDto taskDto) {
+        final List<TaskEntity> taskEntity = taskRepository.findAllByCreator_Id(taskDto.getId());
         return taskEntity.stream().map(taskMapper::convertToTaskDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -34,7 +34,7 @@ public class ServiceWithException {
                 .onFailure(ex -> logger.info(String.valueOf(ex)));
     }
 
-    public Set<TaskDto> findTasks(TaskDto taskDto) {
+    public List<TaskDto> findTasks(TaskDto taskDto) {
         return taskService.queryTasks(taskDto);
     }
 
