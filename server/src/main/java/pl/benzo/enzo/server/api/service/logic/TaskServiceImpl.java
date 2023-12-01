@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.entity.TaskEntity;
+import pl.benzo.enzo.server.api.model.mapper.TaskMapper;
 import pl.benzo.enzo.server.api.repository.TaskRepository;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
 import pl.benzo.enzo.server.util.Status;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final UserServiceBasic userServiceBasic;
+    private final TaskMapper taskMapper;
 
     @Override
     public void create(TaskDto taskDto) {
@@ -35,46 +37,14 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Set<TaskDto> queryTasks(TaskDto taskDto) {
         final Set<TaskEntity> taskEntity = taskRepository.findAllByCreator_Id(taskDto.getCreator_id());
-        return taskEntity.stream().map(task -> {
-                    TaskDto taskDto1 = new TaskDto();
-                    taskDto1.setId(task.getId());
-                    taskDto1.setName(task.getName());
-                    taskDto1.setPay(task.getPay());
-                    taskDto1.setStatus(task.getStatus());
-                    taskDto1.setDescription(task.getDescription());
-
-                    if (task.getAssignee() != null) {
-                        taskDto1.setAssignee_id(task.getAssignee().getId());
-                    }
-                    if (task.getCreator() != null) {
-                        taskDto1.setCreator_id(task.getCreator().getId());
-                    }
-
-                    return taskDto1;
-                })
+        return taskEntity.stream().map(taskMapper::convertToTaskDto)
                 .collect(Collectors.toSet());
     }
 
     @Override
     public Set<TaskDto> queryAllTasks() {
         return taskRepository.findAll().stream()
-                .map(task -> {
-                    TaskDto taskDto = new TaskDto();
-                    taskDto.setId(task.getId());
-                    taskDto.setName(task.getName());
-                    taskDto.setPay(task.getPay());
-                    taskDto.setStatus(task.getStatus());
-                    taskDto.setDescription(task.getDescription());
-
-                    if (task.getAssignee() != null) {
-                        taskDto.setAssignee_id(task.getAssignee().getId());
-                    }
-                    if (task.getCreator() != null) {
-                        taskDto.setCreator_id(task.getCreator().getId());
-                    }
-
-                    return taskDto;
-                })
+                .map(taskMapper::convertToTaskDto)
                 .collect(Collectors.toSet());
     }
 }
