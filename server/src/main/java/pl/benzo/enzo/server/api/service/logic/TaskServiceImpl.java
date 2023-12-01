@@ -18,8 +18,9 @@ import java.util.stream.Collectors;
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final UserServiceBasic userServiceBasic;
+
     @Override
-    public void create(TaskDto taskDto){
+    public void create(TaskDto taskDto) {
         final TaskEntity taskEntity = new TaskEntity();
 
         taskEntity.setName(taskDto.getName());
@@ -30,35 +31,12 @@ public class TaskServiceImpl implements TaskService {
 
         taskRepository.save(taskEntity);
     }
-    @Override
-    public Set<TaskDto> queryTasks(TaskDto taskDto){
-        final Set<TaskEntity> taskEntity= taskRepository.findAllByCreator_Id(taskDto.getCreator_id());
-        final TaskDto taskDto1 = new TaskDto();
 
+    @Override
+    public Set<TaskDto> queryTasks(TaskDto taskDto) {
+        final Set<TaskEntity> taskEntity = taskRepository.findAllByCreator_Id(taskDto.getCreator_id());
         return taskEntity.stream().map(task -> {
-
-            taskDto1.setId(task.getId());
-            taskDto1.setName(task.getName());
-            taskDto1.setPay(task.getPay());
-            taskDto1.setStatus(task.getStatus());
-            taskDto1.setDescription(task.getDescription());
-
-            if (task.getAssignee() != null) {
-                taskDto1.setAssignee_id(task.getAssignee().getId());
-            }
-            if (task.getCreator() != null) {
-                taskDto1.setCreator_id(task.getCreator().getId());
-            }
-
-            return taskDto1;
-
-        }).collect(Collectors.toSet());
-    }
-    @Override
-    public Set<TaskDto> queryAllTasks(){
-        final TaskDto taskDto1 = new TaskDto();
-        return taskRepository.findAll().stream().
-                map(task -> {
+                    TaskDto taskDto1 = new TaskDto();
                     taskDto1.setId(task.getId());
                     taskDto1.setName(task.getName());
                     taskDto1.setPay(task.getPay());
@@ -73,6 +51,30 @@ public class TaskServiceImpl implements TaskService {
                     }
 
                     return taskDto1;
-                }).collect(Collectors.toSet());
+                })
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<TaskDto> queryAllTasks() {
+        return taskRepository.findAll().stream()
+                .map(task -> {
+                    TaskDto taskDto = new TaskDto();
+                    taskDto.setId(task.getId());
+                    taskDto.setName(task.getName());
+                    taskDto.setPay(task.getPay());
+                    taskDto.setStatus(task.getStatus());
+                    taskDto.setDescription(task.getDescription());
+
+                    if (task.getAssignee() != null) {
+                        taskDto.setAssignee_id(task.getAssignee().getId());
+                    }
+                    if (task.getCreator() != null) {
+                        taskDto.setCreator_id(task.getCreator().getId());
+                    }
+
+                    return taskDto;
+                })
+                .collect(Collectors.toSet());
     }
 }
