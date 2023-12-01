@@ -7,12 +7,14 @@ import {
   Routes
 } from 'react-router-dom';
 import Main from "./page/Main";
+import SignPanel from "./page/SignPanel";
 
 function App() {
   return (
       <Router>
    <Routes>
-       <Route path="/" element={<Main/>}/>
+       <Route path="/" element={<SignPanel/>}/>
+       <Route path="/logged-in" element={<Main/>}/>
    </Routes>
       </Router>
   );
