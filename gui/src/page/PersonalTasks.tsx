@@ -6,7 +6,7 @@ const PersonalTasks = () => {
 
     useEffect(() => {
 
-        axios.post('/api/unauthorized/query-tasks', {id:"4"})
+        axios.post('/api/unauthorized/query-tasks', {id: sessionStorage.getItem("id")})
             .then(response => {
                 setTasks(response.data);
             })

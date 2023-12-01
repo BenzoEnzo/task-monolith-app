@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
+import pl.benzo.enzo.server.api.model.dto.NotificationDto;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.ManageService;
@@ -68,6 +69,17 @@ public class UnauthorizedController {
     @PostMapping(value = "/my-account", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> accountMe(@RequestBody AccountDto accountDto){
         return ResponseEntity.status(HttpStatus.OK).body(manageService.getInformationAboutMe(accountDto));
+    }
+
+    @PostMapping(value = "/create-notification", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createTask(@RequestBody NotificationDto notificationDto){
+        service.createNotification(notificationDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping(value = "/query-notification", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> queryNotification(@RequestBody NotificationDto notificationDto){
+        return ResponseEntity.status(HttpStatus.OK).body(service.queryNotificationForTask(notificationDto));
     }
 }
 

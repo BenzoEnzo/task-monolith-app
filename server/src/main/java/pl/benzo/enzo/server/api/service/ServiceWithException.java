@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.builder.EntitiesBuilder;
+import pl.benzo.enzo.server.api.model.dto.NotificationDto;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.logic.AccountService;
+import pl.benzo.enzo.server.api.service.logic.NotificationService;
 import pl.benzo.enzo.server.api.service.logic.TaskService;
 import pl.benzo.enzo.server.api.service.logic.UserService;
 
@@ -28,6 +30,7 @@ public class ServiceWithException {
     private final UserService userService;
     private final AccountService accountService;
     private final TaskService taskService;
+    private final NotificationService notificationService;
 
     public Try<List<UserDto>> findAllUsers() {
         return Try.of(userService::findAll)
@@ -54,6 +57,14 @@ public class ServiceWithException {
 
     public void createTask(TaskDto taskDto){
         taskService.create(taskDto);
+    }
+
+    public void createNotification(NotificationDto notificationDto){
+        notificationService.pingNotificationForTask(notificationDto);
+    }
+
+    public List<NotificationDto> queryNotificationForTask(NotificationDto notificationDto){
+        return notificationService.queryNotifications(notificationDto);
     }
 
 }
