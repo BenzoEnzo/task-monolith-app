@@ -1,6 +1,7 @@
 package pl.benzo.enzo.server.api.model.entity;
 
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,9 @@ public class AccountEntity {
     private Long id;
     @OneToOne
     private UserEntity userRelation;
+    @Nonnull
     private String mail;
+    @Nonnull
     private String password;
     private BigDecimal money;
     private Role role;

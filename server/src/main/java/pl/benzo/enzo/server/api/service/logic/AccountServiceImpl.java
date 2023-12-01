@@ -8,6 +8,8 @@ import pl.benzo.enzo.server.api.model.entity.AccountEntity;
 import pl.benzo.enzo.server.api.repository.AccountRepository;
 import pl.benzo.enzo.server.util.Role;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService{
@@ -33,6 +35,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public AccountBuilder loggIn(AccountBuilder accountBuilder) {
         final AccountEntity acc = accountRepository.findAccountEntityByMailAndPassword(accountBuilder.getMail(), accountBuilder.getPassword());
+
         if(acc == null){
             throw new IllegalArgumentException("Nie znaleziono danych użytkownika");
         } else {
@@ -41,5 +44,20 @@ public class AccountServiceImpl implements AccountService{
                     .id(acc.getId())
                     .build();
         }
+    }
+
+    @Override
+    public AccountBuilder update(AccountBuilder accountBuilder) {
+        final AccountEntity acc = accountRepository.findById(accountBuilder.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Uzytkownik o takim ID nie istnieje"));
+
+        Optional.ofNullable(accountBuilder.getRole()).ifPresent(acc::setRole);
+        Optional.ofNullable(accountBuilder.getMoney()).ifPresent(acc::setMoney);
+        Optional.ofNullable(accountBuilder.getPassword()).ifPresent(acc::setPassword);
+        Optional.ofNullable(accountBuilder.getUserRelation()).ifPresent(acc::setUserRelation);
+
+        accountRepository.save(acc);
+
+        return accountBuilder;
     }
 }
