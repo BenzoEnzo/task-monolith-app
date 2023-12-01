@@ -21,12 +21,8 @@ public class NotificationEntity {
 
     private String title;
     private String content;
-    @ManyToMany
-    @JoinTable(
-            name = "NOTIFICATION_TASK",
-            joinColumns = @JoinColumn(name = "notification_id"),
-            inverseJoinColumns = @JoinColumn(name = "task_id")
-    )
-    private Set<TaskEntity> tasks;
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private TaskEntity task;
 
 }
