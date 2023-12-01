@@ -2,6 +2,7 @@ package pl.benzo.enzo.server.api.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.util.Status;
 
 import java.math.BigDecimal;
@@ -15,4 +16,5 @@ public class TaskBuilder {
     private String description;
     private BigDecimal pay;
     private Status status;
+    private UserEntity user;
 }

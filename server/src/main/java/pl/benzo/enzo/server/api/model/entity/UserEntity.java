@@ -17,10 +17,13 @@ public class UserEntity {
     private Long id;
     private String name;
 
-
     @OneToMany(mappedBy = "userRelation")
     private List<TaskEntity> tasks;
 
     @OneToMany(mappedBy = "userRelation")
     private List<NotificationEntity> notifications;
+
+    @OneToOne
+    private AccountEntity accountRelation;
+
 }
