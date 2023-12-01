@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import pl.benzo.enzo.server.api.model.dto.AccountBuilder;
 import pl.benzo.enzo.server.util.JsonReader;
 
 import java.io.IOException;

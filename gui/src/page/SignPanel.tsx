@@ -1,17 +1,18 @@
 import './Base.css'
 import React, { useState } from "react";
 import {validateAccount} from "../functions/Sign";
+import {useNavigate} from "react-router-dom";
 
 const SignPanel = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate = useNavigate();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-
         validateAccount(email, password)
             .then(response => {
+                navigate("/logged-in");
                 console.log('Login success', response);
             })
             .catch(error => {

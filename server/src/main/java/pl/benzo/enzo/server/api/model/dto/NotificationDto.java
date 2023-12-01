@@ -1,12 +1,12 @@
 package pl.benzo.enzo.server.api.model.dto;
 
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
-@Builder
-public class NotificationBuilder {
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class NotificationDto {
     private Long id;
     private String title;
     private String description;

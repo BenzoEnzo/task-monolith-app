@@ -3,7 +3,9 @@ package pl.benzo.enzo.server.api.service.logic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.benzo.enzo.server.api.model.dto.UserBuilder;
+import pl.benzo.enzo.server.api.model.dto.EntitiesBuilder;
+import pl.benzo.enzo.server.api.model.dto.UserDto;
+import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.api.repository.UserRepository;
 
 import java.util.List;
@@ -15,12 +17,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<UserBuilder> findAll() {
+    public List<UserDto> findAll() {
         return userRepository.findAll().stream()
-                .map(userEntity -> UserBuilder.builder()
-                        .id(userEntity.getId())
-                        .name(userEntity.getName())
-                        .build())
+                .map(UserEntity -> new UserDto())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto create(EntitiesBuilder entitiesBuilder) {
+        return null;
     }
 }

@@ -1,10 +1,10 @@
 package pl.benzo.enzo.server.api.service.logic;
 
-import pl.benzo.enzo.server.api.model.dto.AccountBuilder;
+import pl.benzo.enzo.server.api.model.dto.AccountDto;
 
 public interface AccountService {
-    AccountBuilder create(AccountBuilder accountBuilder);
-    AccountBuilder loggIn(AccountBuilder accountBuilder);
+    void create(AccountDto accountDto);
+    AccountDto loggIn(AccountDto accountDto);
 
-    AccountBuilder update(AccountBuilder accountBuilder);
+    AccountDto update(AccountDto accountDto);
 }

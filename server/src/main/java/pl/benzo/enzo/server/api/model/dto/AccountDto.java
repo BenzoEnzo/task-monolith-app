@@ -1,20 +1,23 @@
 package pl.benzo.enzo.server.api.model.dto;
 
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.util.Role;
 
 import java.math.BigDecimal;
 
-@Builder
-@Data
-public class AccountBuilder {
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class AccountDto {
     private Long id;
     private String mail;
-    private final BigDecimal money = BigDecimal.valueOf(0);
-    private final Role role = Role.USER;
+    private BigDecimal money = BigDecimal.valueOf(0);
+    private Role role = Role.USER;
     private UserEntity userRelation;
     private String password;
 }

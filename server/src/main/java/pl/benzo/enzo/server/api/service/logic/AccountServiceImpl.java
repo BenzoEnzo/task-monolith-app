@@ -3,7 +3,7 @@ package pl.benzo.enzo.server.api.service.logic;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.benzo.enzo.server.api.model.dto.AccountBuilder;
+import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.entity.AccountEntity;
 import pl.benzo.enzo.server.api.repository.AccountRepository;
 
@@ -15,49 +15,46 @@ public class AccountServiceImpl implements AccountService{
     private final AccountRepository accountRepository;
 
     @Override
-    public AccountBuilder create(AccountBuilder accountBuilder) {
-        final AccountEntity acc = accountRepository.findAccountEntityByMail(accountBuilder.getMail());
+    public void create(AccountDto accountDto) {
+        final Optional<AccountEntity> acc = accountRepository.findAccountEntityByMail(accountDto.getMail());
 
-        if(acc != null){
+        if(acc.isPresent()){
             throw new IllegalArgumentException("Konto o podanym mailu już istnieje");
         } else {
             final AccountEntity account = new AccountEntity();
-            account.setMail(accountBuilder.getMail());
-            account.setPassword(accountBuilder.getPassword());
+            account.setMail(accountDto.getMail());
+            account.setPassword(accountDto.getPassword());
             accountRepository.save(account);
-            return AccountBuilder.builder()
-                    .mail(accountBuilder.getMail())
-                    .build();
         }
     }
 
     @Override
-    public AccountBuilder loggIn(AccountBuilder accountBuilder) {
-        final AccountEntity acc = accountRepository.findAccountEntityByMailAndPassword(accountBuilder.getMail(), accountBuilder.getPassword());
+    public AccountDto loggIn(AccountDto accountDto) {
+        final AccountEntity acc = accountRepository.findAccountEntityByMailAndPassword(accountDto.getMail(), accountDto.getPassword());
 
         if(acc == null){
             throw new IllegalArgumentException("Nie znaleziono danych użytkownika");
         } else {
-            return AccountBuilder
-                    .builder()
-                    .id(acc.getId())
-                    .mail(acc.getMail())
-                    .build();
+            AccountDto accDto = new AccountDto();
+            accDto.setMail(acc.getMail());
+            accDto.setId(acc.getId());
+            accDto.setMoney(acc.getMoney());
+            return accDto;
         }
     }
 
     @Override
-    public AccountBuilder update(AccountBuilder accountBuilder) {
-        final AccountEntity acc = accountRepository.findById(accountBuilder.getId())
+    public AccountDto update(AccountDto accountDto) {
+        final AccountEntity acc = accountRepository.findById(accountDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Uzytkownik o takim ID nie istnieje"));
 
-        Optional.ofNullable(accountBuilder.getRole()).ifPresent(acc::setRole);
-        Optional.ofNullable(accountBuilder.getMoney()).ifPresent(acc::setMoney);
-        Optional.ofNullable(accountBuilder.getPassword()).ifPresent(acc::setPassword);
-        Optional.ofNullable(accountBuilder.getUserRelation()).ifPresent(acc::setUserRelation);
+        Optional.ofNullable(accountDto.getRole()).ifPresent(acc::setRole);
+        Optional.ofNullable(accountDto.getMoney()).ifPresent(acc::setMoney);
+        Optional.ofNullable(accountDto.getPassword()).ifPresent(acc::setPassword);
+        Optional.ofNullable(accountDto.getUserRelation()).ifPresent(acc::setUserRelation);
 
         accountRepository.save(acc);
 
-        return accountBuilder;
+        return accountDto;
     }
 }

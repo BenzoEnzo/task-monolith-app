@@ -22,6 +22,7 @@ public class AccountEntity {
     @OneToOne
     private UserEntity userRelation;
     @Nonnull
+    @Column(unique = true)
     private String mail;
     @Nonnull
     private String password;

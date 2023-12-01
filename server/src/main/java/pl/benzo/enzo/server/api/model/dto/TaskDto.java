@@ -1,16 +1,19 @@
 package pl.benzo.enzo.server.api.model.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.util.Status;
 
 import java.math.BigDecimal;
 
 
-@Builder
-@Data
-public class TaskBuilder {
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class TaskDto {
     private Long id;
     private String name;
     private String description;

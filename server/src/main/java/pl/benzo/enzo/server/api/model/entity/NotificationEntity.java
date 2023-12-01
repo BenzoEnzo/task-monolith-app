@@ -22,6 +22,6 @@ public class NotificationEntity {
     @JoinColumn(name = "user_id")
     private UserEntity userRelation;
 
-    @ManyToMany(mappedBy = "notifications")
+    @ManyToMany
     private List<TaskEntity> tasks;
 }
