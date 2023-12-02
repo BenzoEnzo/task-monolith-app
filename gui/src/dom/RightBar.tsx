@@ -5,6 +5,7 @@ import CreateTask from "../page/CreateTask";
 import PersonalTasks from "../page/PersonalTasks";
 import CreateNotification from "../page/CreateNotification";
 import PersonalNotification from "../page/PersonalNotification";
+import QueryUsers from "../page/QueryUsers";
 
 const RightBar: React.FC = () => {
     const [activeTab, setActiveTab] = useState('account');
@@ -44,7 +45,7 @@ const RightBar: React.FC = () => {
             case 'create-notification':
                 return reportsOpen ? null : <CreateNotification/>;
             case 'ranking':
-                return <div>Tutaj będzie ranking uzytkownikow, plusy za dobrze wykonane zadanie</div>;
+                return <QueryUsers/>;
             default:
                 return null;
         }
@@ -75,6 +76,7 @@ const RightBar: React.FC = () => {
                         )}
                     </li>
                     <li onClick={() => handleTabClick('ranking')}>Ranking</li>
+                    <li onClick={() => handleTabClick('ranking')}>Relacje</li>
                 </ul>
             </div>
             <div className="main-content">

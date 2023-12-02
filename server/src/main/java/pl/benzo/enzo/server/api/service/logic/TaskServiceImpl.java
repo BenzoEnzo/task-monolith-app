@@ -5,8 +5,10 @@ package pl.benzo.enzo.server.api.service.logic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
+import pl.benzo.enzo.server.api.model.entity.NotificationEntity;
 import pl.benzo.enzo.server.api.model.entity.TaskEntity;
 import pl.benzo.enzo.server.api.model.mapper.TaskMapper;
+import pl.benzo.enzo.server.api.repository.NotificationRepository;
 import pl.benzo.enzo.server.api.repository.TaskRepository;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
 import pl.benzo.enzo.server.util.Status;
@@ -21,7 +23,7 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final UserServiceBasic userServiceBasic;
     private final TaskMapper taskMapper;
-
+    private final NotificationRepository notificationRepository;
     @Override
     public void create(TaskDto taskDto) {
         final TaskEntity taskEntity = new TaskEntity();
@@ -50,6 +52,19 @@ public class TaskServiceImpl implements TaskService {
     }
 
     public TaskDto joinToTask(TaskDto taskDto){
+        final TaskEntity taskEntity = taskRepository.findById(taskDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Bad request"));
 
+        taskEntity.setAssignee(userServiceBasic.findUserById(taskDto.getAssignee_id()));
+        taskEntity.setStatus(Status.WAITING_FOR_ACCEPT);
+       NotificationEntity notificationEntity = new NotificationEntity();
+        notificationEntity.setTitle("Ktoś odpowiedział na twoje zgłoszenie");
+        notificationEntity.setContent(taskDto.getDescription());
+        List<NotificationEntity> notificationEntityList = taskEntity.getNotifications();
+        notificationEntity = notificationRepository.save(notificationEntity);
+        notificationEntityList.add(notificationEntity);
+        taskEntity.setNotifications(notificationEntityList);
+        taskRepository.save(taskEntity);
+        return taskDto;
     }
 }

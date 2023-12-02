@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+interface TaskDto {
+    title: string;
+    description: string;
+    task_id: number;
+}
 const Report = () => {
     const [tasks, setTasks] = useState([]);
 
@@ -16,7 +20,19 @@ const Report = () => {
             });
     }, []);
 
+
+
+
     const handleAcceptReport = (taskId: Number) => {
+        axios.post('/api/unauthorized/join-to-task', {id: taskId,
+        assignee_id: sessionStorage.getItem("id")})
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the tasks', error);
+            });
+
         console.log(`Accepted report with ID: ${taskId}`);
     };
 
@@ -35,21 +51,31 @@ const Report = () => {
                         <p>Pay: {task["pay"]}</p>
                         <p>Status: {task["status"]}</p>
                         <p>Description: {task["description"]}</p>
+                        <p>  {task["creator_id"] == sessionStorage.getItem("id") && (
+                           <>
+                               Jesteś zleceniodawcą tego zadania
+                           </>
+                        )}</p>
                         <div className="button-container">
                             {task["creator_id"] != sessionStorage.getItem("id") && (
                                 <>
+                                    {task["status"] != "WAITING_FOR_ACCEPT" && (
+                                        <>
                                     <button
                                         className="accept-button"
                                         onClick={() => handleAcceptReport(task["id"])}
                                     >
                                         Zaakceptuj zgłoszenie
                                     </button>
+                                        </>
+                                    )}
                                     <button
                                         className="details-button"
                                         onClick={() => handleReadDetails(task["id"])}
                                     >
                                         Czytaj szczegóły
                                     </button>
+
                                 </>
                             )}
                         </div>

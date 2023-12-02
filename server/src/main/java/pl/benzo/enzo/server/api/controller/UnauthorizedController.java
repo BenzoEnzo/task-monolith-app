@@ -81,6 +81,11 @@ public class UnauthorizedController {
     public ResponseEntity<?> queryNotification(@RequestBody NotificationDto notificationDto){
         return ResponseEntity.status(HttpStatus.OK).body(service.queryNotificationForTask(notificationDto));
     }
+
+    @PostMapping(value = "/join-to-task", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> joinTask(@RequestBody TaskDto taskDto){
+        return ResponseEntity.status(HttpStatus.OK).body(service.joinToTask(taskDto));
+    }
 }
 
 

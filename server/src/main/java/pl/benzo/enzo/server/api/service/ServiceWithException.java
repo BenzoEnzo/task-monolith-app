@@ -67,4 +67,8 @@ public class ServiceWithException {
         return notificationService.queryNotifications(notificationDto);
     }
 
+    public TaskDto joinToTask(TaskDto taskDto){
+        return taskService.joinToTask(taskDto);
+    }
+
 }

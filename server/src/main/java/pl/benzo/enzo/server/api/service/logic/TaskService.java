@@ -9,4 +9,6 @@ public interface TaskService {
     void create(TaskDto taskDto);
     List<TaskDto> queryTasks(TaskDto taskDto);
     Set<TaskDto> queryAllTasks();
+
+    TaskDto joinToTask(TaskDto taskDto);
 }

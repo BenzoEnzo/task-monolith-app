@@ -11,9 +11,11 @@ import lombok.Setter;
 public class UserDto {
     private Long user_id;
     private String name;
+    private Integer score;
 
-    public UserDto(Long user_id, String name) {
+    public UserDto(Long user_id, String name, Integer score) {
         this.user_id = user_id;
         this.name = name;
+        this.score = score;
     }
 }

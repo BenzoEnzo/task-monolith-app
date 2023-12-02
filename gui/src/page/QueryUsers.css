@@ -1,0 +1,30 @@
+.user-list {
+    list-style: none;
+    padding: 0;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.user-item.gold {
+    background-color: gold;
+}
+
+.user-item.silver {
+    background-color: silver;
+}
+
+.user-item.bronze {
+    background-color: #cd7f32;
+}
+
+.user-name, .user-score {
+    font-weight: bold;
+}
