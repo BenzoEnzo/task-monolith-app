@@ -43,8 +43,8 @@ const RightBar: React.FC = () => {
                 return reportsOpen ? null : <PersonalNotification />;
             case 'create-notification':
                 return reportsOpen ? null : <CreateNotification/>;
-            case 'assigned':
-                return <div>Tutaj będą zadania przypisane do użytkownika</div>;
+            case 'ranking':
+                return <div>Tutaj będzie ranking uzytkownikow, plusy za dobrze wykonane zadanie</div>;
             default:
                 return null;
         }
@@ -74,7 +74,7 @@ const RightBar: React.FC = () => {
                             </ul>
                         )}
                     </li>
-                    <li onClick={() => handleTabClick('assigned')}>Przypisane</li>
+                    <li onClick={() => handleTabClick('ranking')}>Ranking</li>
                 </ul>
             </div>
             <div className="main-content">

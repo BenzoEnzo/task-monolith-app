@@ -36,21 +36,25 @@ const Report = () => {
                         <p>Status: {task["status"]}</p>
                         <p>Description: {task["description"]}</p>
                         <div className="button-container">
-                            <button
-                                className="accept-button"
-                                onClick={() => handleAcceptReport(task["id"])}
-                            >
-                                Zaakceptuj zgłoszenie
-                            </button>
-                            <button
-                                className="details-button"
-                                onClick={() => handleReadDetails(task["id"])}
-                            >
-                                Czytaj szczegóły
-                            </button>
+                            {task["creator_id"] != sessionStorage.getItem("id") && (
+                                <>
+                                    <button
+                                        className="accept-button"
+                                        onClick={() => handleAcceptReport(task["id"])}
+                                    >
+                                        Zaakceptuj zgłoszenie
+                                    </button>
+                                    <button
+                                        className="details-button"
+                                        onClick={() => handleReadDetails(task["id"])}
+                                    >
+                                        Czytaj szczegóły
+                                    </button>
+                                </>
+                            )}
                         </div>
-                        {/*<p>Assignee ID: {task["assignee_id"]}</p>*/}
                         {/*<p>Creator ID: {task["creator_id"]}</p>*/}
+                        {/*<p>Assignee ID: {task["assignee_id"]}</p>*/}
                     </li>
                 ))}
             </ul>

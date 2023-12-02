@@ -1,0 +1,17 @@
+.task-notification-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.task-notification-table, .task-notification-table th, .task-notification-table td {
+    border: 1px solid black;
+}
+
+.task-notification-table th, .task-notification-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.task-notification-table th {
+    background-color: #f2f2f2;
+}

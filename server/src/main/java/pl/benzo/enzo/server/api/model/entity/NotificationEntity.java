@@ -24,8 +24,6 @@ public class NotificationEntity {
     @ManyToOne
     @JoinColumn(name = "task_id")
     private TaskEntity task;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+
 
 }

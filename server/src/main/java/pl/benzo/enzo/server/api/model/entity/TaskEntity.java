@@ -34,6 +34,7 @@ public class TaskEntity {
     @JoinColumn(name = "assignee_id")
     private UserEntity assignee;
 
+
     @OneToMany
     private List<NotificationEntity> notifications;
 }

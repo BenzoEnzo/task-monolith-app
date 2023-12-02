@@ -48,4 +48,8 @@ public class TaskServiceImpl implements TaskService {
                 .map(taskMapper::convertToTaskDto)
                 .collect(Collectors.toSet());
     }
+
+    public TaskDto joinToTask(TaskDto taskDto){
+
+    }
 }
