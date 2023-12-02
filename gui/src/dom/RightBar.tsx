@@ -3,6 +3,8 @@ import Account from "../page/Account";
 import Report from "../page/Report";
 import CreateTask from "../page/CreateTask";
 import PersonalTasks from "../page/PersonalTasks";
+import CreateNotification from "../page/CreateNotification";
+import PersonalNotification from "../page/PersonalNotification";
 
 const RightBar: React.FC = () => {
     const [activeTab, setActiveTab] = useState('account');
@@ -37,6 +39,10 @@ const RightBar: React.FC = () => {
                 return reportsOpen ? null : <CreateTask />;
             case 'personal-tasks':
                 return reportsOpen ? null : <PersonalTasks />;
+            case 'personal-notifications':
+                return reportsOpen ? null : <PersonalNotification />;
+            case 'create-notification':
+                return reportsOpen ? null : <CreateNotification/>;
             case 'assigned':
                 return <div>Tutaj będą zadania przypisane do użytkownika</div>;
             default:
@@ -53,8 +59,8 @@ const RightBar: React.FC = () => {
                         Powiadomienia
                         {notificationsOpen && (
                             <ul className="submenu">
-                                <li>Skrzynka</li>
-                                <li>Wyślij</li>
+                                <li onClick={() => handleTabClick('personal-notifications')}>Skrzynka</li>
+                                <li onClick={() => handleTabClick('create-notification')}>Wyślij</li>
                             </ul>
                         )}
                     </li>

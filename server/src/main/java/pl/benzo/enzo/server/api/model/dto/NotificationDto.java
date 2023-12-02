@@ -11,4 +11,5 @@ public class NotificationDto {
     private String title;
     private String description;
     private Long task_id;
+    private Long user_id;
 }
