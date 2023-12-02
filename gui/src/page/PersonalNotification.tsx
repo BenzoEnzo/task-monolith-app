@@ -25,7 +25,7 @@ const PersonalNotification: React.FC = () => {
             .then(tasks => {
                 // Dla każdego zadania pobierz powiadomienia
                 tasks.forEach(task => {
-                    axios.post('/api/unauthorized/query-notification', { id: task.id })
+                    axios.post('/api/unauthorized/query-notification', { task_id: task.id })
                         .then(response => {
                             setNotifications(prevNotifications => [...prevNotifications, ...response.data]);
                         });
