@@ -15,7 +15,7 @@ const PersonalTasks = () => {
             });
     }, []);
 
-
+const usrId = sessionStorage.getItem("id");
 
     return (
         <div className="report-container">
@@ -29,6 +29,15 @@ const PersonalTasks = () => {
                         <p>Description: {task["description"]}</p>
                         {/*<p>Assignee ID: {task["assignee_id"]}</p>*/}
                         {/*<p>Creator ID: {task["creator_id"]}</p>*/}
+                        {task["status"] == "WAITING_FOR_ACCEPT" && task["creator_id"] == usrId && (
+                            <>
+                                <button
+                                    className="accept-button"
+                                >
+                                   Zatwierdź zlecenie
+                                </button>
+                            </>
+                        )}
                     </li>
                 ))}
             </ul>

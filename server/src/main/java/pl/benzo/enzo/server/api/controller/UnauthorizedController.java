@@ -44,7 +44,7 @@ public class UnauthorizedController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
           }
         }
-    @PostMapping(value = "/edit-data", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/edit-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createUserData(@RequestBody UserDto userDto){
         service.createUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
