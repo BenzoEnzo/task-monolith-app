@@ -34,5 +34,6 @@ public class NotificationServiceImpl implements NotificationService{
         notificationEntity.setTitle(notificationDto.getTitle());
         notificationEntity.setContent(notificationDto.getDescription());
         notificationEntity.setTask(taskEntity);
+        notificationRepository.save(notificationEntity);
     }
 }

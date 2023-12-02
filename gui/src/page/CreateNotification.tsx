@@ -41,8 +41,7 @@ const CreateNotification: React.FC = () => {
     };
 
     return (
-        <form className="login-container">
-            <form className="login-form" onSubmit={handleSubmit}>
+
         <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="title">Title:</label>
@@ -52,7 +51,6 @@ const CreateNotification: React.FC = () => {
                     name="title"
                     value={notification.title}
                     onChange={handleChange}
-                    className="form-input"
                 />
             </div>
             <div>
@@ -63,7 +61,6 @@ const CreateNotification: React.FC = () => {
                     name="description"
                     value={notification.description}
                     onChange={handleChange}
-                    className="form-textarea"
                 />
             </div>
             <div>
@@ -74,13 +71,10 @@ const CreateNotification: React.FC = () => {
                     name="task_id"
                     value={notification.task_id}
                     onChange={handleChange}
-                    className="form-input"
                 />
             </div>
             <button type="submit">Create Notification</button>
         </form>
-            </form>
-            </form>
 
     );
 };
