@@ -2,17 +2,20 @@ package pl.benzo.enzo.server.api.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.dto.NotificationDto;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.ManageService;
 import pl.benzo.enzo.server.api.service.ServiceWithException;
+import pl.benzo.enzo.server.api.service.logic.UploaderService;
 import pl.benzo.enzo.server.security.JWT;
 
 import java.util.Objects;
@@ -25,6 +28,7 @@ public class UnauthorizedController {
     private final ServiceWithException service;
     private final JWT jwt;
     private final ManageService manageService;
+    private final UploaderService uploaderService;
 
     @PostMapping(value = "/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUpUser(@RequestBody AccountDto accountDto){
@@ -85,6 +89,16 @@ public class UnauthorizedController {
     @PostMapping(value = "/join-to-task", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> joinTask(@RequestBody TaskDto taskDto){
         return ResponseEntity.status(HttpStatus.OK).body(service.joinToTask(taskDto));
+    }
+
+    @PostMapping(value = "/profile-image",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file, @RequestParam("photoId") String photoId)  {
+        uploaderService.uploadImageOnServer(file, photoId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    @GetMapping(value = "/profile-image/load/{fileName}")
+    public ResponseEntity<Resource> getProfilePicture(@PathVariable String fileName) {
+        return ResponseEntity.status(HttpStatus.OK).body(uploaderService.loadFile(fileName));
     }
 }
 

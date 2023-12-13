@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 const Account = () => {
+
     const [account, setAccountInfo] = useState(null);
     const [error, setError] = useState("");
     const [editMode, setEditMode] = useState(false);
     const [editedName, setEditedName] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [imageSrc, setImageSrc] = useState('');
+
     const userId = sessionStorage.getItem("id");
+    const fileName = sessionStorage.getItem("photoId");
+
+
     useEffect(() => {
         const fetchAccountInfo = async () => {
             try {
@@ -19,10 +26,47 @@ const Account = () => {
             }
         };
 
+        const loadImage = async () => {
+            try {
+                const dataIMG = fileName + ".jpeg";
+                const response = await axios.get(`/api/unauthorized/profile-image/load/${dataIMG}`, { responseType: 'arraybuffer' });
+                const base64Image = `data:image/jpeg;base64,${btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+                setImageSrc(base64Image);
+            } catch (error) {
+                console.error("Błąd podczas ładowania zdjęcia:", error);
+            }
+        };
+
         if (userId) {
             fetchAccountInfo();
         }
-    }, [userId]);
+
+        if (fileName) {
+            loadImage();
+        }
+    }, [userId, fileName]);
+
+    const onFileChange = (event: any) => {
+        setSelectedFile(event.target.files[0]);
+    };
+
+    const onUpload = async () => {
+        if(selectedFile){
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('photoId', fileName + ".jpeg");
+        try {
+            const response = await axios.post('/api/unauthorized/profile-image', formData);
+            setImageSrc(`data:image/jpeg;base64,${response.data}`);
+
+            window.location.reload();
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+        } else {
+            console.log('No file selected');
+        }
+    };
 
     const handlePatchName = async () => {
         try {
@@ -71,6 +115,7 @@ const Account = () => {
     }
 
     return (
+        <div className='account-container'>
         <div className='account-info-card'>
             <h2>Informacje o Koncie</h2>
             <p>Email: {account["accountDto"]["mail"]}</p>
@@ -87,6 +132,13 @@ const Account = () => {
             >
                 Przejście w tryb edycji
             </button>
+        </div>
+            <div className="image-upload-section">
+                <h3>Prześlij swoje zdjęcie</h3>
+                <input type="file" onChange={onFileChange} />
+                <button onClick={onUpload}>Prześlij zdjęcie</button>
+
+            </div>
         </div>
 
     );

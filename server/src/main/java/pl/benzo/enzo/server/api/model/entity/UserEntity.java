@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @Data
@@ -19,8 +19,8 @@ public class UserEntity {
     @Column(name = "user_id")
     private Long id;
     private Integer score;
-
     private String name;
+
 
     @OneToOne(mappedBy = "user")
     private AccountEntity account;
@@ -30,7 +30,6 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "assignee")
     private Set<TaskEntity> assignedTasks = new HashSet<>();
-
 
 
 }

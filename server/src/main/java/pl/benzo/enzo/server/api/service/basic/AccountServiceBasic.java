@@ -36,6 +36,7 @@ public class AccountServiceBasic {
         accountDto.setMail(accountEntity.getMail());
         accountDto.setMoney(accountEntity.getMoney());
         accountDto.setRole(accountEntity.getRole());
+        accountDto.setPhotoId(accountDto.getPhotoId());
         final UserEntity userEntity = userServiceBasic.findUserById(id);
         final UserDto userDto = new UserDto();
         userDto.setName(userEntity.getName());

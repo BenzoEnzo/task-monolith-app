@@ -17,4 +17,5 @@ public class AccountDto {
     private BigDecimal money = BigDecimal.valueOf(0);
     private Role role = Role.USER;
     private String password;
+    private String photoId;
 }

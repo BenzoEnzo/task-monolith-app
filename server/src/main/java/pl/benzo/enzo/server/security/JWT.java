@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import pl.benzo.enzo.server.util.file.JsonReader;
@@ -26,13 +27,14 @@ import java.util.function.Function;
 @Slf4j
 public class JWT {
     private final static Logger LOGGER = LoggerFactory.getLogger(JWT.class);
-    private final static String FILEPATH = "/home/devk/Pulpit/IdeaProjects/task-monolith-app/server/src/main/resources/security/secureApp.json";
+    @Value("${app.key.dir}")
+    private String filepath;
     private String SECRET;
 
     @Bean
     public void getValuesFromJson() throws IOException {
        final JsonReader jsonReader = new JsonReader();
-       jsonReader.readJsonToMap(FILEPATH);
+       jsonReader.readJsonToMap(filepath);
        final Map map = jsonReader.getJsonMap();
        this.SECRET = (String) map.get("SECRET");
        LOGGER.info(SECRET);

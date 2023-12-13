@@ -43,6 +43,7 @@ public class AccountServiceImpl implements AccountService{
             accDto.setMail(acc.getMail());
             accDto.setId(acc.getId());
             accDto.setMoney(acc.getMoney());
+            accDto.setPhotoId(acc.getPhotoId());
             return accDto;
         }
     }

@@ -17,13 +17,60 @@
     background: linear-gradient(to bottom, #ffffff 0%, #f2f2f2 100%);
 }
 
-.account-info-card {
+.account-container {
+    display: flex;
+    flex-direction: row;
+    background: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    align-items: start;
+}
+
+.account-info-card, .image-upload-section {
+    flex-grow: 1;
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin-bottom: 20px;
-    transition: box-shadow 0.3s;
+    margin-right: 20px;
+}
+
+.account-info-card:last-child, .image-upload-section:last-child {
+    margin-right: 0;
+}
+
+
+.image-upload-section h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.image-upload-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.image-upload-section input[type="file"] {
+    margin-bottom: 15px;
+}
+
+.image-upload-section button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.image-upload-section button:hover {
+    opacity: 0.8;
 }
 
 .account-info-card:hover {
@@ -41,6 +88,8 @@
     color: #666;
     line-height: 1.6;
 }
+
+
 
 .right-bar {
     width: 250px;
@@ -72,6 +121,19 @@
 
 .right-bar li:hover {
     background-color: #f0e68c;
+}
+
+.right-bar .img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.right-bar .img img {
+    max-width: 80%;
+    height: 40%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .submenu-closed {
@@ -272,8 +334,8 @@
 }
 
 .form-textarea {
-    height: 150px; /* Domyślna wysokość dla textarea */
-    resize: vertical; /* Zezwól użytkownikowi na zmianę wysokości textarea */
+    height: 150px;
+    resize: vertical;
 }
 
 .form-button {
@@ -291,3 +353,4 @@
 .form-button:hover {
     background-color: #ec971f;
 }
+

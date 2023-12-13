@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import pl.benzo.enzo.server.util.enumeration.Role;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 @Data
 @Entity
@@ -27,8 +28,13 @@ public class AccountEntity {
     private String password;
     private BigDecimal money = BigDecimal.ZERO;
     private Role role = Role.USER;
+    private String photoId = String.valueOf(randomIDGen());
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity user;
+
+    private Long randomIDGen(){
+        return new Random().nextLong(123456789L);
+    }
 }

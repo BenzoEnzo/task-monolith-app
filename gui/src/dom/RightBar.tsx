@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Account from "../page/Account";
 import Report from "../page/Report";
 import CreateTask from "../page/CreateTask";
@@ -6,12 +6,14 @@ import PersonalTasks from "../page/PersonalTasks";
 import CreateNotification from "../page/CreateNotification";
 import PersonalNotification from "../page/PersonalNotification";
 import QueryUsers from "../page/QueryUsers";
+import axios from "axios";
 
 const RightBar: React.FC = () => {
     const [activeTab, setActiveTab] = useState('account');
     const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [reportsOpen, setReportsOpen] = useState(false);
-
+    const fileName = sessionStorage.getItem("photoId");
+    const [imageSrc, setImageSrc] = useState('');
     const handleTabClick = (tab: string) => {
         if (tab !== 'notifications' && tab !== 'reports') {
             setNotificationsOpen(false);
@@ -27,6 +29,22 @@ const RightBar: React.FC = () => {
     const toggleReports = () => {
         setReportsOpen(!reportsOpen);
     };
+    useEffect(() => {
+        const loadImage = async () => {
+            try {
+                const dataIMG = fileName + ".jpeg";
+                const response = await axios.get(`/api/unauthorized/profile-image/load/${dataIMG}`, {responseType: 'arraybuffer'});
+                const base64Image = `data:image/jpeg;base64,${btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+                setImageSrc(base64Image);
+            } catch (error) {
+                console.error("Błąd podczas ładowania zdjęcia:", error);
+            }
+        };
+
+        if (fileName) {
+            loadImage();
+        }
+    });
 
     const renderContent = () => {
         switch (activeTab) {
@@ -54,7 +72,11 @@ const RightBar: React.FC = () => {
     return (
         <>
             <div className="right-bar">
+
                 <ul>
+                    <div className="img">
+                        {imageSrc && <img src={imageSrc} alt="Profile" />}
+                    </div>
                     <li onClick={() => handleTabClick('account')}>Konto</li>
                     <li onClick={toggleNotifications}>
                         Powiadomienia
