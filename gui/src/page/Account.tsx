@@ -36,20 +36,30 @@ const Account = () => {
         }
     };
 
-    const renderEditView = () => (
-        <>
-            <input
-                type="text"
-                value={editedName}
-                onChange={(e) => setEditedName(e.target.value)}
-            />
-            <button onClick={handlePatchName}>Zapisz zmiany</button>
-        </>
-    );
+    const renderEditView = () => {
+        const isNameEmpty = editedName.trim() === '';
+        return (
+            <>
+                <input
+                    type="text"
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)}
+                />
+                {isNameEmpty && <div>Uzupełnij Pole</div>}
+                <button
+                    onClick={handlePatchName}
+                    disabled={isNameEmpty}
+                >
+                    Zapisz zmiany
+                </button>
+            </>
+        );
+    };
 
     const renderDisplayView = () => {
     if (!account) return null;
-    return <p>Imię: {account["userDto"]["name"]}</p>
+    return <><p>Imię: {account["userDto"]["name"]}</p>
+        </>
     };
 
     if (error) {
@@ -67,6 +77,7 @@ const Account = () => {
             <p>Saldo: {account["accountDto"]["money"]}</p>
             <p>Rola: {account["accountDto"]["role"]}</p>
             {editMode ? renderEditView() : renderDisplayView()}
+            <p>Points: {account["userDto"]["score"]}</p>
             <button
                 className="details-button"
                 onClick={() => {

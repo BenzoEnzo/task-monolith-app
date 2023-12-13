@@ -42,6 +42,10 @@ const QueryUsers = () => {
 
     return (
         <div className="user-list">
+            <div className="user-header">
+                <span className="user-name-header">Imię:</span>
+                <span className="user-score-header">Score:</span>
+            </div>
             {users.map((user, index) => (
                 <div key={user.id} className={`user-item ${getMedalColor(index)}`}>
                     <span className="user-name">{user.name}</span>

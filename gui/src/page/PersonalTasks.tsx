@@ -22,6 +22,7 @@ const usrId = sessionStorage.getItem("id");
             <h2>Lista ogłoszeń</h2>
             <ul className="task-list">
                 {tasks.map((task, index) => (
+                    <>
                     <li key={index} className="task-item">
                         <h3>{task["name"]}</h3>
                         <p>Pay: {task["pay"]}</p>
@@ -39,6 +40,18 @@ const usrId = sessionStorage.getItem("id");
                             </>
                         )}
                     </li>
+                        <button
+                            className="accept-button"
+                        >
+                           Edytuj zlecenie
+                        </button>
+
+                        <button
+                            className="accept-button"
+                        >
+                            Zobacz Akcje
+                        </button>
+                    </>
                 ))}
             </ul>
         </div>
