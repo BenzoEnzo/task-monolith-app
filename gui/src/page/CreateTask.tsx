@@ -60,8 +60,7 @@ const CreateTask: React.FC = () => {
     };
 
     return (
-        <div className="login-container">
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="task-form" onSubmit={handleSubmit}>
                 <h2>Utwórz zadanie</h2>
                 <input
                     type="text"
@@ -71,6 +70,14 @@ const CreateTask: React.FC = () => {
                     placeholder="Nazwa zadania"
                     className="form-input"
                 />
+                <textarea
+                    name="description"
+                    value={task.description}
+                    onChange={handleChange}
+                    placeholder="Opis"
+                    className="form-textarea"
+                />
+                <div className="label">Wynagrodzenie za wykonane zlecenie:</div>
                 <input
                     type="number"
                     name="pay"
@@ -79,13 +86,6 @@ const CreateTask: React.FC = () => {
                     placeholder="Wynagrodzenie"
                     className="form-input"
                 />
-                <textarea
-                    name="description"
-                    value={task.description}
-                    onChange={handleChange}
-                    placeholder="Opis"
-                    className="form-textarea"
-                />
                 <input
                     type="hidden"
                     name="creator_id"
@@ -93,7 +93,7 @@ const CreateTask: React.FC = () => {
                 />
                 <button type="submit">Utwórz zadanie</button>
             </form>
-        </div>
+
     );
 };
 

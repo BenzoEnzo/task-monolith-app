@@ -112,6 +112,7 @@ const Account = () => {
             <p>Rola: {account["accountDto"]["role"]}</p>
             {editMode ? renderEditView() : renderDisplayView()}
             <p>Points: {account["userDto"]["score"]}</p>
+            <p></p>
             <button
                 className="details-button"
                 onClick={() => {
@@ -121,6 +122,19 @@ const Account = () => {
             >
                 Przejście w tryb edycji
             </button>
+            <p>
+            { editMode && <>
+                <button
+                    className="details-button"
+                    onClick={() => {
+                        setEditMode(false);
+                    }}
+                >
+                    Anuluj
+                </button>
+            </>
+           }
+            </p>
         </div>
             <div className="image-upload-section">
                 <h3>Prześlij swoje zdjęcie</h3>
