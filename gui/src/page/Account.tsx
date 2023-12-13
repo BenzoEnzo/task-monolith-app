@@ -20,31 +20,20 @@ const Account = () => {
                 const accountDto = { id: userId };
                 const response = await axios.post('/api/unauthorized/my-account', accountDto);
                 setAccountInfo(response.data);
+                const dataIMG = fileName + ".jpeg";
+                const responseI = await axios.get(`/api/unauthorized/profile-image/load/${dataIMG}`, { responseType: 'arraybuffer' });
+                const base64Image = `data:image/jpeg;base64,${btoa(new Uint8Array(responseI.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+                setImageSrc(base64Image);
             } catch (error) {
                 setError('Error fetching account information');
                 console.error('Error fetching account information', error);
             }
         };
 
-        const loadImage = async () => {
-            try {
-                const dataIMG = fileName + ".jpeg";
-                const response = await axios.get(`/api/unauthorized/profile-image/load/${dataIMG}`, { responseType: 'arraybuffer' });
-                const base64Image = `data:image/jpeg;base64,${btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
-                setImageSrc(base64Image);
-            } catch (error) {
-                console.error("Błąd podczas ładowania zdjęcia:", error);
-            }
-        };
-
         if (userId) {
             fetchAccountInfo();
         }
-
-        if (fileName) {
-            loadImage();
-        }
-    }, [userId, fileName]);
+    }, [fileName, userId]);
 
     const onFileChange = (event: any) => {
         setSelectedFile(event.target.files[0]);
@@ -71,7 +60,7 @@ const Account = () => {
     const handlePatchName = async () => {
         try {
             const response = await axios.patch('/api/unauthorized/edit-data', { user_id: userId, name: editedName });
-                // @ts-ignore
+            // @ts-ignore
             setAccountInfo({...account, userDto: {...account.userDto, name: editedName}});
             setEditMode(false);
         } catch (error) {
@@ -81,7 +70,7 @@ const Account = () => {
     };
 
     const renderEditView = () => {
-        const isNameEmpty = editedName.trim() === '';
+        const isNameEmpty = editedName === '';
         return (
             <>
                 <input

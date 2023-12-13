@@ -24,3 +24,13 @@ export function validateAccount(mail: string, password: string): Promise<any> {
             return data;
         });
 }
+
+export function registration(mail: string, password: string): Promise<any> {
+    return fetch("/api/unauthorized/sign-up", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ mail, password })
+    });
+}
