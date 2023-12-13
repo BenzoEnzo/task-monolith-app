@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.util;
+package pl.benzo.enzo.server.util.file;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;

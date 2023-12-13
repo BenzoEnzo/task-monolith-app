@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.util;
+package pl.benzo.enzo.server.util.enumeration;
 
 
 public enum Status {

@@ -15,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pl.benzo.enzo.server.api.service.basic.AccountServiceBasic;
-import pl.benzo.enzo.server.util.Role;
+import pl.benzo.enzo.server.util.enumeration.Role;
 
 import java.io.IOException;
 

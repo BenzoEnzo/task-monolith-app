@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import pl.benzo.enzo.server.util.Role;
+import pl.benzo.enzo.server.util.enumeration.Role;
 
 import java.math.BigDecimal;
 

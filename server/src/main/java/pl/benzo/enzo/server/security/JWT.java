@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import pl.benzo.enzo.server.util.JsonReader;
+import pl.benzo.enzo.server.util.file.JsonReader;
 
 import java.io.IOException;
 import java.security.Key;

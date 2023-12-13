@@ -11,7 +11,7 @@ import pl.benzo.enzo.server.api.model.mapper.TaskMapper;
 import pl.benzo.enzo.server.api.repository.NotificationRepository;
 import pl.benzo.enzo.server.api.repository.TaskRepository;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
-import pl.benzo.enzo.server.util.Status;
+import pl.benzo.enzo.server.util.enumeration.Status;
 
 import java.util.List;
 import java.util.Set;

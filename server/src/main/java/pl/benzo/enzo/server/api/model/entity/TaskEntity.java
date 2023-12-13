@@ -4,12 +4,10 @@ package pl.benzo.enzo.server.api.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import pl.benzo.enzo.server.util.Status;
+import pl.benzo.enzo.server.util.enumeration.Status;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
