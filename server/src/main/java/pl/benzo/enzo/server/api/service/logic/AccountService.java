@@ -1,5 +1,6 @@
 package pl.benzo.enzo.server.api.service.logic;
 
+import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 
 public interface AccountService {

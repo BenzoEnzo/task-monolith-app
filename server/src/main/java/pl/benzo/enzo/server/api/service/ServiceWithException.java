@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.dto.*;
 import pl.benzo.enzo.server.api.model.builder.EntitiesBuilder;
 import pl.benzo.enzo.server.api.service.logic.AccountService;

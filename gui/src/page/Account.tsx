@@ -8,11 +8,9 @@ const Account = () => {
     const [editMode, setEditMode] = useState(false);
     const [editedName, setEditedName] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
-    const [imageSrc, setImageSrc] = useState('');
 
     const userId = sessionStorage.getItem("id");
     const fileName = sessionStorage.getItem("photoId");
-
 
     useEffect(() => {
         const fetchAccountInfo = async () => {
@@ -20,10 +18,6 @@ const Account = () => {
                 const accountDto = { id: userId };
                 const response = await axios.post('/api/unauthorized/my-account', accountDto);
                 setAccountInfo(response.data);
-                const dataIMG = fileName + ".jpeg";
-                const responseI = await axios.get(`/api/unauthorized/profile-image/load/${dataIMG}`, { responseType: 'arraybuffer' });
-                const base64Image = `data:image/jpeg;base64,${btoa(new Uint8Array(responseI.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
-                setImageSrc(base64Image);
             } catch (error) {
                 setError('Error fetching account information');
                 console.error('Error fetching account information', error);
@@ -33,7 +27,7 @@ const Account = () => {
         if (userId) {
             fetchAccountInfo();
         }
-    }, [fileName, userId]);
+    }, [userId]);
 
     const onFileChange = (event: any) => {
         setSelectedFile(event.target.files[0]);
@@ -45,9 +39,7 @@ const Account = () => {
         formData.append('file', selectedFile);
         formData.append('photoId', fileName + ".jpeg");
         try {
-            const response = await axios.post('/api/unauthorized/profile-image', formData);
-            setImageSrc(`data:image/jpeg;base64,${response.data}`);
-
+            await axios.post('/api/unauthorized/profile-image', formData);
             window.location.reload();
         } catch (error) {
             console.error('Error uploading file:', error);

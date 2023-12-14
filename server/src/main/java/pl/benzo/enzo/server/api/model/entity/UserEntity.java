@@ -20,6 +20,11 @@ public class UserEntity {
     private Long id;
     private Integer score;
     private String name;
+    private String lastName;
+    @Column(unique = true)
+    private Long pesel;
+    @Column(unique = true)
+    private Long phone;
 
 
     @OneToOne(mappedBy = "user")

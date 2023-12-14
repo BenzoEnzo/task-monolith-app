@@ -4,6 +4,7 @@ package pl.benzo.enzo.server.api.service.basic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.benzo.enzo.server.api.model.builder.EntitiesBuilder;
+import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.model.entity.AccountEntity;
@@ -30,18 +31,24 @@ public class AccountServiceBasic {
                 .orElseThrow(() -> new IllegalArgumentException("NULLABLE ACCOUNT"));
     }
 
-    public EntitiesBuilder getInformationAboutMe(Long id){
+    public PersonalInformationBuilder getInformationAboutMe(Long id){
         final AccountEntity accountEntity = findAccountById(id);
+        final UserEntity userEntity = accountEntity.getUser();
         final AccountDto accountDto = new AccountDto();
+        final UserDto userDto = new UserDto();
+
         accountDto.setMail(accountEntity.getMail());
         accountDto.setMoney(accountEntity.getMoney());
         accountDto.setRole(accountEntity.getRole());
         accountDto.setPhotoId(accountDto.getPhotoId());
-        final UserEntity userEntity = userServiceBasic.findUserById(id);
-        final UserDto userDto = new UserDto();
-        userDto.setName(userEntity.getName());
 
-        return EntitiesBuilder.builder()
+        userDto.setName(userEntity.getName());
+        userDto.setScore(userEntity.getScore());
+        userDto.setLastName(userEntity.getLastName());
+        userDto.setPesel(userEntity.getPesel());
+        userDto.setPhone(userEntity.getPhone());
+
+        return PersonalInformationBuilder.builder()
                 .accountDto(accountDto)
                 .userDto(userDto)
                 .build();

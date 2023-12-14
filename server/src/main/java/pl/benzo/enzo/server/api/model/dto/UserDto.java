@@ -1,6 +1,7 @@
 package pl.benzo.enzo.server.api.model.dto;
 
 
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,9 @@ public class UserDto {
     private String name;
     private Integer score;
     private String photoId;
+    private String lastName;
+    private Long pesel;
+    private Long phone;
 
     public UserDto(Long user_id, String name, Integer score) {
         this.user_id = user_id;
