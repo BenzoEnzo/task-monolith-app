@@ -57,7 +57,7 @@ const RightBar: React.FC = () => {
         if (fileName) {
             loadImage();
         }
-    });
+    }, [fileName]);
 
 
     const renderContent = () => {
