@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './PersonalNotification.css';
+import {useNavigate} from "react-router-dom";
 
 interface Task {
     id: number;
@@ -24,6 +25,13 @@ const PersonalNotification: React.FC = () => {
     const [tasksWithNotifications, setTasksWithNotifications] = useState<TaskWithNotifications[]>([]);
     const userId = sessionStorage.getItem("id");
     const [openTaskId, setOpenTaskId] = useState<number | null>(null);
+    const navigate = useNavigate();
+    const [sliderValue, setSliderValue] = useState(50);
+
+
+    const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSliderValue(Number(event.target.value));
+    };
 
     useEffect(() => {
         axios.post('/api/unauthorized/query-tasks', { creator_id: userId })
@@ -45,12 +53,28 @@ const PersonalNotification: React.FC = () => {
             });
     }, [userId]);
 
+
     const handleShowNotifications = (taskId: number) => {
         setOpenTaskId(taskId);
     };
 
     const handleCloseNotifications = () => {
         setOpenTaskId(null);
+    };
+
+    const readUserProfile = (userId: any) => {
+        axios.get(`/api/unauthorized/read-user/${userId}`)
+            .then(response => {
+                const userProfile = response.data;
+                const isOpen = true;
+                navigate("/read-user", { state: { userProfile: userProfile,
+                    isOpen: isOpen} });
+                setOpenTaskId(null);
+                console.log(userProfile);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the user profile', error);
+            });
     };
 
     return (
@@ -75,13 +99,25 @@ const PersonalNotification: React.FC = () => {
                                 <div className="overlay">
                                     <div className="offer-form">
                                         <h2>Wiadomości:</h2>
+                                        <div>
+                                            <label>
+                                                Wartość suwaka: {sliderValue}
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="100"
+                                                    value={sliderValue}
+                                                    onChange={handleSliderChange}
+                                                />
+                                            </label>
+                                        </div>
                                         <ul>
                                             {taskWithNotification.notifications.map((notification, nindex) => (
                                                 <li key={nindex}>
                                                 <span className="notification-section">
                                                     <span className="section-title">Autor:</span>
                                                     <span className="author">{notification.author_name}</span>
-                                                    <button className="profile-button">Zobacz Profil</button>
+                                                    <button className="profile-button" onClick={() => readUserProfile(notification.author_id)}>Zobacz Profil</button>
                                                      <button className="reply-button">Odpowiedz</button>
                                                 </span>
                                                                                             <span className="notification-section">
