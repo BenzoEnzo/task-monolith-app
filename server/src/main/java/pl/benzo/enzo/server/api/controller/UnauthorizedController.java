@@ -110,7 +110,7 @@ public class UnauthorizedController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping(value = "/read-user/{userId}")
+    @GetMapping(value = "/read-user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> readUser(@PathVariable Long userId) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(service.readUser(userId));

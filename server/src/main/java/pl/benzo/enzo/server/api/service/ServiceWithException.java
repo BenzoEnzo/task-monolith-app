@@ -35,7 +35,7 @@ public class ServiceWithException {
     }
 
     public List<TaskDto> findTasks(TaskDto taskDto) {
-        return taskService.queryTasks(taskDto);
+        return taskService.queryTasks(taskDto.getCreator_id());
     }
 
     public Set<TaskDto> findAllTasks(){

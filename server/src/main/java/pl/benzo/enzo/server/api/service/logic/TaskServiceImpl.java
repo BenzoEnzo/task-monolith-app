@@ -38,8 +38,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> queryTasks(TaskDto taskDto) {
-        final List<TaskEntity> taskEntity = taskRepository.findAllByCreator_Id(taskDto.getId());
+    public List<TaskDto> queryTasks(Long creator_id) {
+        final List<TaskEntity> taskEntity = taskRepository.findAllByCreator_Id(creator_id);
         return taskEntity.stream().map(taskMapper::convertToTaskDto)
                 .collect(Collectors.toList());
     }

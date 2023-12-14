@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface TaskService {
     void create(TaskDto taskDto);
-    List<TaskDto> queryTasks(TaskDto taskDto);
+    List<TaskDto> queryTasks(Long creator_id);
     Set<TaskDto> queryAllTasks();
 
     TaskDto joinToTask(TaskDto taskDto);
