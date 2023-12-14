@@ -12,11 +12,13 @@ const SignPanel = () => {
     const [rPassword, setRPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isError, setIsError] = useState(false);
+    const [isRError, setIsRError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [rErrorMessage, setRErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
-    const isMatching = (password == confirmPassword);
+    const isMatching = (rPassword == confirmPassword);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -35,14 +37,16 @@ const SignPanel = () => {
 
     const registerSubmit = (z: React.FormEvent<HTMLFormElement>) => {
         z.preventDefault();
-        registration(email, password)
-            .then(response => {
+        registration(rEmail, rPassword)
+            .then(() => {
                 setSuccessMessage("Zarejestrowano pomyślnie, aktywuj konto na mailu");
                 setIsSuccess(true);
+                setIsRError(false);
             })
             .catch(error => {
-                setErrorMessage("Invalid Credentials ! Try again");
-                setIsError(true);
+                setRErrorMessage("Mail is used");
+                setIsRError(true);
+                setIsSuccess(false);
                 console.error('Register failed', error);
             });
     };
@@ -55,14 +59,14 @@ const SignPanel = () => {
                 <input
                     type="text"
                     placeholder="Email"
-                    value={rEmail}
-                    onChange={(e) => setREmail(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
                     placeholder="Hasło"
-                    value={rPassword}
-                    onChange={(e) => setRPassword(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit">Zaloguj się</button>
                 {isError && <div className="error-message">{errorMessage}</div>}
@@ -75,14 +79,14 @@ const SignPanel = () => {
                     <input
                         type="text"
                         placeholder="Email"
-                        value={email}
-                        onChange={(z) => setEmail(z.target.value)}
+                        value={rEmail}
+                        onChange={(z) => setREmail(z.target.value)}
                     />
                     <input
                         type="password"
                         placeholder="Hasło"
-                        value={password}
-                        onChange={(z) => setPassword(z.target.value)}
+                        value={rPassword}
+                        onChange={(z) => setRPassword(z.target.value)}
                     />
                     <input
                         type="password"
@@ -98,8 +102,8 @@ const SignPanel = () => {
                     ) : (
                         <div style={{ color: 'red' }}>Hasła nie są takie same.</div>
                     )}
-                    {isError && <div className="error-message">{errorMessage}</div>}
-                    {isSuccess&& <div className="success-message">{successMessage}</div>}
+                    {isSuccess  && <div className="success-message">{successMessage}</div>}
+                    {isRError && <div className="error-message">{rErrorMessage}</div>}
                 </form>
             </div>
         </div>

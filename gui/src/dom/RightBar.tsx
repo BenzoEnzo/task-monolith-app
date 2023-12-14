@@ -8,11 +8,13 @@ import PersonalNotification from "../page/PersonalNotification";
 import QueryUsers from "../page/QueryUsers";
 import axios from "axios";
 
+
 const RightBar: React.FC = () => {
     const [activeTab, setActiveTab] = useState('account');
     const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [reportsOpen, setReportsOpen] = useState(false);
     const fileName = sessionStorage.getItem("photoId");
+    const usrName = sessionStorage.getItem("name");
     const [imageSrc, setImageSrc] = useState('');
     const handleTabClick = (tab: string) => {
         if (tab !== 'notifications' && tab !== 'reports') {
@@ -24,6 +26,17 @@ const RightBar: React.FC = () => {
 
     const toggleNotifications = () => {
         setNotificationsOpen(!notificationsOpen);
+    };
+
+    const logout = async () => {
+        try {
+            sessionStorage.clear();
+            await axios.get('/api/manage/logout');
+            window.location.href = '/';
+        } catch (error) {
+            console.error("Błąd podczas wylogowywania:", error);
+        }
+
     };
 
     const toggleReports = () => {
@@ -45,6 +58,7 @@ const RightBar: React.FC = () => {
             loadImage();
         }
     });
+
 
     const renderContent = () => {
         switch (activeTab) {
@@ -74,6 +88,7 @@ const RightBar: React.FC = () => {
             <div className="right-bar">
 
                 <ul>
+                    <h3>Zalogowano:</h3>
                     <div className="img">
                         {imageSrc && <img src={imageSrc} alt="Profile" />}
                     </div>
@@ -99,6 +114,7 @@ const RightBar: React.FC = () => {
                     </li>
                     <li onClick={() => handleTabClick('ranking')}>Ranking</li>
                     <li onClick={() => handleTabClick('ranking')}>Relacje</li>
+                    <li onClick={() => logout()}>Wyloguj</li>
                 </ul>
             </div>
             <div className="main-content">

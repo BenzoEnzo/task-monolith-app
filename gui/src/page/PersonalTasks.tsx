@@ -51,6 +51,7 @@ const usrId = sessionStorage.getItem("id");
                         >
                             Zobacz Akcje
                         </button>
+                        <p></p>
                     </>
                 ))}
             </ul>

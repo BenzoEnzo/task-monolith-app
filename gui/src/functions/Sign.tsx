@@ -32,5 +32,9 @@ export function registration(mail: string, password: string): Promise<any> {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ mail, password })
+    }).then(response => {
+        if(!response.ok){
+            throw new Error('Registration failed');
+        }
     });
 }

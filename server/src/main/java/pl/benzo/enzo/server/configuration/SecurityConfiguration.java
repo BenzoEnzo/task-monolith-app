@@ -40,7 +40,11 @@ public class SecurityConfiguration {
                                 .requestMatchers(mvcMatcherBuilder.pattern(V_3)).permitAll()
                                 .anyRequest().authenticated()
                 )
-                .addFilterBefore(filterBeforeRequest, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(filterBeforeRequest, UsernamePasswordAuthenticationFilter.class)
+                .logout((logout) -> logout
+                        .logoutUrl("/api/manage/logout")
+                        .clearAuthentication(true)
+                        .permitAll());
 
         return http.getOrBuild();
     }

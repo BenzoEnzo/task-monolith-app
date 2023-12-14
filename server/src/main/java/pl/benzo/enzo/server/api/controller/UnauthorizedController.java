@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
@@ -100,6 +101,7 @@ public class UnauthorizedController {
     public ResponseEntity<Resource> getProfilePicture(@PathVariable String fileName) {
         return ResponseEntity.status(HttpStatus.OK).body(uploaderService.loadFile(fileName));
     }
+
 }
 
 

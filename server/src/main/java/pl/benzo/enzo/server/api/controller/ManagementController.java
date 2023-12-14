@@ -19,4 +19,10 @@ public class ManagementController {
     public ResponseEntity<?> accountMe(@RequestBody AccountDto accountDto){
         return ResponseEntity.status(HttpStatus.OK).body(manageService.getInformationAboutMe(accountDto));
     }
+
+    @GetMapping(value = "/logout")
+    public String killSession(){
+        return "redirect:/";
+    }
+
 }
