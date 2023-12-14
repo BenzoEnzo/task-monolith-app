@@ -9,8 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -18,6 +19,8 @@ import pl.benzo.enzo.server.api.service.basic.AccountServiceBasic;
 import pl.benzo.enzo.server.util.enumeration.Role;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Component
 @RequiredArgsConstructor
@@ -35,29 +38,21 @@ public class FilterBeforeRequest extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             mail = jwt.extractUsername(token);
+            LOGGER.info("Pobrano mail: " + mail);
         }
 
-        LOGGER.info(mail);
+
 
         if (mail != null && jwt.validateToken(token, mail)) {
-            final String finalMail = mail;
-            final Role role = accountServiceBasic.findAccountByMail(finalMail).getRole();
-            Authentication authToken = new AbstractAuthenticationToken(null) {
-                @Override
-                public Object getCredentials() {
-                    return role;
-                }
 
-                @Override
-                public Object getPrincipal() {
-                    return finalMail;
-                }
+            final Role role = accountServiceBasic.findAccountByMail(mail).getRole();
+            LOGGER.info("Etap 2, pobrano role:" + role);
+            Collection<GrantedAuthority> getRoleAuthorities = new ArrayList<>();
+            getRoleAuthorities.add((GrantedAuthority) () -> String.valueOf(Role.USER));
 
-                @Override
-                public boolean isAuthenticated() {
-                    return true;
-                }
-            };
+            Authentication authToken = new UsernamePasswordAuthenticationToken(mail, null, getRoleAuthorities);
+
+            LOGGER.info("Authorities: " + authToken.getAuthorities().size());
 
             SecurityContextHolder.getContext().setAuthentication(authToken);
         }
