@@ -15,3 +15,61 @@
 .task-notification-table th {
     background-color: #f2f2f2;
 }
+
+.offer-form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1001;
+    min-width: 50%;
+}
+
+.offer-form h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.offer-form ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.offer-form ul li {
+    margin-bottom: 15px;
+    background-color: #f2f2f2;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.notification-section {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-right: 10px;
+    display: inline-block;
+    color: #333;
+}
+
+.author, .title, .description {
+    display: inline;
+    color: #555;
+}
+
+.author {
+    color: #4A90E2;
+}
+
+.offer-form ul li textarea.description {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #555;
+    resize: none;
+}

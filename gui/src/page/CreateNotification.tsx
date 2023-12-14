@@ -3,20 +3,28 @@ interface NotificationDto {
     title: string;
     description: string;
     task_id: number;
+    author_id: string;
+    author_name: string;
 }
 const CreateNotification: React.FC = () => {
+
     const [notification, setNotification] = useState<NotificationDto>({
         title: '',
         description: '',
         task_id: 0,
+        author_id: '',
+        author_name: ''
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const author = sessionStorage.getItem('id');
+        if(author){
         const { name, value } = e.target;
         setNotification(prevNotification => ({
             ...prevNotification,
+            author_id: author,
             [name]: value
-        }));
+        }));}
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,6 +79,13 @@ const CreateNotification: React.FC = () => {
                     name="task_id"
                     value={notification.task_id}
                     onChange={handleChange}
+                />
+            </div>
+            <div>
+                <input
+                    type="hidden"
+                    name="author_id"
+                    value={notification.author_id}
                 />
             </div>
             <button type="submit">Create Notification</button>

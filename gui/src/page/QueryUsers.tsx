@@ -48,7 +48,9 @@ const QueryUsers = () => {
             </div>
             {users.map((user, index) => (
                 <div key={user.id} className={`user-item ${getMedalColor(index)}`}>
+                    {user.name == null && <>    <span className="user-name">UNKNOWN_USER</span> </> }
                     <span className="user-name">{user.name}</span>
+                    {user.Score == null && <>    <span className="user-score">0</span> </> }
                     <span className="user-score">{user.Score}</span>
                 </div>
             ))}

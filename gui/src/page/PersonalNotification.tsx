@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './PersonalNotification.css'
+import './PersonalNotification.css';
 
 interface Task {
     id: number;
-    name: string; // Zakładam, że zadanie zawiera pole 'name'
+    name: string;
 }
 
 interface NotificationDto {
     title: string;
     description: string;
-    taskId: number; // Dodane pole do identyfikacji, do którego zadania należy powiadomienie
+    taskId: number;
+    author_id: string;
+    author_name: string;
 }
 
 interface TaskWithNotifications {
@@ -20,7 +22,8 @@ interface TaskWithNotifications {
 
 const PersonalNotification: React.FC = () => {
     const [tasksWithNotifications, setTasksWithNotifications] = useState<TaskWithNotifications[]>([]);
-    const userId = sessionStorage.getItem("id"); // Pobierz ID użytkownika z sesji
+    const userId = sessionStorage.getItem("id");
+    const [openTaskId, setOpenTaskId] = useState<number | null>(null);
 
     useEffect(() => {
         axios.post('/api/unauthorized/query-tasks', { id: userId })
@@ -42,6 +45,14 @@ const PersonalNotification: React.FC = () => {
             });
     }, [userId]);
 
+    const handleShowNotifications = (taskId: number) => {
+        setOpenTaskId(taskId);
+    };
+
+    const handleCloseNotifications = () => {
+        setOpenTaskId(null);
+    };
+
     return (
         <div>
             <h2>Zadania i powiadomienia użytkownika</h2>
@@ -53,17 +64,39 @@ const PersonalNotification: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {tasksWithNotifications.map((taskWithNotification, index) => (
-                    <tr key={index}>
+                {tasksWithNotifications.map((taskWithNotification) => (
+                    <tr key={taskWithNotification.task.id}>
                         <td>{taskWithNotification.task.name}</td>
                         <td>
-                            <ul>
-                                {taskWithNotification.notifications.map((notification, nindex) => (
-                                    <li key={nindex}>
-                                        {notification.title}: {notification.description}
-                                    </li>
-                                ))}
-                            </ul>
+                            <button onClick={() => handleShowNotifications(taskWithNotification.task.id)}>
+                                Sprawdz wiadomosci
+                            </button>
+                            {openTaskId === taskWithNotification.task.id && (
+                                <div className="overlay">
+                                    <div className="offer-form">
+                                        <h2>Wiadomości:</h2>
+                                        <ul>
+                                            {taskWithNotification.notifications.map((notification, nindex) => (
+                                                <li key={nindex}>
+                                                <span className="notification-section">
+                                                    <span className="section-title">Autor:</span>
+                                                    <span className="author">{notification.author_name}</span>
+                                                </span>
+                                                                                            <span className="notification-section">
+                                                    <span className="section-title">Tytuł:</span>
+                                                    <span className="title">{notification.title}</span>
+                                                </span>
+                                                                                            <span className="notification-section">
+                                                    <span className="section-title">Treść:</span>
+                                                       <textarea className="description" disabled value={notification.description}></textarea>
+                                                </span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <button onClick={handleCloseNotifications}>Zamknij</button>
+                                    </div>
+                                </div>
+                            )}
                         </td>
                     </tr>
                 ))}

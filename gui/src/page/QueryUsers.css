@@ -15,9 +15,23 @@
     background-color: #eee;
 }
 
-.user-name-header, .user-score-header, .user-name, .user-score {
+.user-name-header, .user-score-header {
+    flex: 1;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+ .user-name {
     flex: 1;
     text-align: center;
+     padding-right: 190px;
+    font-weight: bold;
+}
+
+.user-score {
+    flex: 1;
+    text-align: center;
+    padding-right: -30px;
     font-weight: bold;
 }
 
