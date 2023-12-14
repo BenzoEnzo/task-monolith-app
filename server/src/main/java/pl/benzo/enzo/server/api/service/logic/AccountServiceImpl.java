@@ -4,6 +4,7 @@ package pl.benzo.enzo.server.api.service.logic;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.entity.AccountEntity;
@@ -19,6 +20,9 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService{
     private final AccountRepository accountRepository;
     private final LinkServiceBasic linkServiceBasic;
+    private final EmailServiceImpl emailServiceImpl;
+    @Value("${app.account.confirmation.api}")
+    private String confirmationAddress;
     @Override
     @Transactional
     public void create(AccountDto accountDto) {
@@ -38,6 +42,8 @@ public class AccountServiceImpl implements AccountService{
             final LinkEntity linkEntity = new LinkEntity();
             linkEntity.setAccount(account);
             linkServiceBasic.createLinkForAccount(linkEntity);
+
+            emailServiceImpl.sendEmail(accountDto.getMail(), "Welcome: Area Account Confirmation", confirmationAddress + linkEntity.getGeneratedVal());
         }
     }
 
