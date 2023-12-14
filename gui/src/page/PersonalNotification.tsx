@@ -26,7 +26,7 @@ const PersonalNotification: React.FC = () => {
     const [openTaskId, setOpenTaskId] = useState<number | null>(null);
 
     useEffect(() => {
-        axios.post('/api/unauthorized/query-tasks', { id: userId })
+        axios.post('/api/unauthorized/query-tasks', { creator_id: userId })
             .then(response => {
                 const fetchedTasks = response.data as Task[];
                 return Promise.all(fetchedTasks.map(task =>
