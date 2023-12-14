@@ -28,7 +28,8 @@ public class ImageUploader {
     }
 
     public static Resource loadFile(String filename, String uploadDirectory) throws FileNotFoundException {
-        Path filePath = Paths.get(uploadDirectory).resolve(filename);
+        final Path path = Paths.get(uploadDirectory);
+        Path filePath = path.resolve(filename);
         logger.info("Attempting to read from: " + filePath);
 
         try {
@@ -36,8 +37,11 @@ public class ImageUploader {
             if (resource.exists()) {
                 return resource;
             } else {
-                throw new FileNotFoundException("File not found: " + filename);
+                filePath = path.resolve("anony.jpg");
+                resource = new UrlResource(filePath.toUri());
+                return resource;
             }
+
         } catch (MalformedURLException ex) {
             throw new FileNotFoundException("File not found: " + filename);
         }

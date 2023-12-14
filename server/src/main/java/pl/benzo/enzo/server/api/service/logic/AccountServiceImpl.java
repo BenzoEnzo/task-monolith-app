@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public AccountDto loggIn(AccountDto accountDto) {
-        final AccountEntity acc = accountRepository.findAccountEntityByMailAndPasswordAndEnabled(accountDto.getMail(), accountDto.getPassword(), true);
+        final AccountEntity acc = accountRepository.findAccountEntityByMailAndPasswordAndEnabled(accountDto.getMail(), accountDto.getPassword(), false); //TODO must be true, for testing = false
         if(acc == null){
             throw new IllegalArgumentException("Nie znaleziono danych użytkownika, lub nie potwierdzono konta");
         } else {
