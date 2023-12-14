@@ -9,7 +9,7 @@ import {
 import Main from "./page/Main";
 import SignPanel from "./page/SignPanel";
 import Report from "./page/Report";
-import ReadUserDetail from "./page/ReadUserDetail";
+
 
 function App() {
   return (
@@ -18,7 +18,6 @@ function App() {
        <Route path="/" element={<SignPanel/>}/>
        <Route path="/logged-in" element={<Main/>}/>
        <Route path="/reports" element={<Report />} />
-       <Route path="/read-user" element={<ReadUserDetail />}/>
    </Routes>
       </Router>
   );

@@ -10,7 +10,6 @@ const ReadUserDetail = () => {
     const [detailOpen, setDetailOpen] = useState(isOpen);
 
     useEffect(() => {
-
         setDetailOpen(isOpen);
     }, [isOpen]);
 
@@ -19,21 +18,17 @@ const ReadUserDetail = () => {
     }
 
     const toggleDetails = () => {
-        navigate('/logged-in');
         setDetailOpen(!detailOpen);
     };
-
     return (
-        <div className="main">
-            <RightBar/>
+    <div className="main">
+        <RightBar/>
 
-                {detailOpen && (
-                    <div className="overlay">
-                        <div className="offer-form">
                             <div className='account-container'>
                                 <div className='account-info-card'>
-                                    <h2>Informacje o Koncie</h2>
-                                    <p>Imię: {userProfile.name}</p>
+                                    {detailOpen && <>
+                                    <h2>Informacje o Użytkowniku: {userProfile.name}</h2>
+
                                     <p>Punkty: {userProfile.score}</p>
                                     <p>Stworzone zlecenia:</p>
                                     <ul>
@@ -46,16 +41,14 @@ const ReadUserDetail = () => {
                                             </li>
                                         ))}
                                     </ul>
+                                    </>}
                                 </div>
                             </div>
                             <button onClick={toggleDetails}>
                                 {detailOpen ? "Hide Details" : "Show Details"}
                             </button>
-                        </div>
-                    </div>
-                )}
 
-        </div>
+    </div>
     );
 };
 

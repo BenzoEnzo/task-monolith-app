@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './PersonalNotification.css';
-import {useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
+
 
 interface Task {
     id: number;
@@ -15,6 +16,12 @@ interface NotificationDto {
     author_id: string;
     author_name: string;
 }
+interface UserProfile {
+    name: string;
+    Score: number;
+    createdTasks: any;
+}
+
 
 interface TaskWithNotifications {
     task: Task;
@@ -25,13 +32,8 @@ const PersonalNotification: React.FC = () => {
     const [tasksWithNotifications, setTasksWithNotifications] = useState<TaskWithNotifications[]>([]);
     const userId = sessionStorage.getItem("id");
     const [openTaskId, setOpenTaskId] = useState<number | null>(null);
-    const navigate = useNavigate();
-    const [sliderValue, setSliderValue] = useState(50);
-
-
-    const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSliderValue(Number(event.target.value));
-    };
+    const [openDetail, setOpenDetail] = useState(false);
+    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
     useEffect(() => {
         axios.post('/api/unauthorized/query-tasks', { creator_id: userId })
@@ -62,14 +64,15 @@ const PersonalNotification: React.FC = () => {
         setOpenTaskId(null);
     };
 
+    const handleCloseUserDetail = () => {
+        setOpenDetail(false);
+    }
     const readUserProfile = (userId: any) => {
         axios.get(`/api/unauthorized/read-user/${userId}`)
             .then(response => {
-                const userProfile = response.data;
-                const isOpen = true;
-                navigate("/read-user", { state: { userProfile: userProfile,
-                    isOpen: isOpen} });
+                setUserProfile(response.data);
                 setOpenTaskId(null);
+                setOpenDetail(true);
                 console.log(userProfile);
             })
             .catch(error => {
@@ -77,6 +80,7 @@ const PersonalNotification: React.FC = () => {
             });
     };
 
+    // @ts-ignore
     return (
         <div>
             <h2>Zadania i powiadomienia użytkownika</h2>
@@ -95,22 +99,36 @@ const PersonalNotification: React.FC = () => {
                             <button onClick={() => handleShowNotifications(taskWithNotification.task.id)}>
                                 Sprawdz wiadomosci
                             </button>
+                            {  openDetail && userProfile && (
+                                <div className="overlay">
+                                    <div className="offer-form">
+                                        <div className='account-container'>
+                                            <div className='account-info-card'>
+                                                <h2>Informacje o Użytkowniku: {userProfile.name}</h2>
+                                                <p>Punkty: {userProfile.Score}</p>
+                                                <p>Stworzone zlecenia:</p>
+                                                <ul>
+                                                    {userProfile.createdTasks.map((task:any, index:any) => (
+                                                        <li key={index}>
+                                                            <p>Nazwa zadania: {task.name}</p>
+                                                            <p>Opis: {task.description}</p>
+                                                            <p>Wynagrodzenie: {task.pay}</p>
+                                                            <p>Status: {task.status}</p>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button onClick={handleCloseUserDetail}>
+                                            Powrót
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                             {openTaskId === taskWithNotification.task.id && (
                                 <div className="overlay">
                                     <div className="offer-form">
                                         <h2>Wiadomości:</h2>
-                                        <div>
-                                            <label>
-                                                Wartość suwaka: {sliderValue}
-                                                <input
-                                                    type="range"
-                                                    min="0"
-                                                    max="100"
-                                                    value={sliderValue}
-                                                    onChange={handleSliderChange}
-                                                />
-                                            </label>
-                                        </div>
                                         <ul>
                                             {taskWithNotification.notifications.map((notification, nindex) => (
                                                 <li key={nindex}>
