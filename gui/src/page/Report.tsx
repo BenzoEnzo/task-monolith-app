@@ -7,6 +7,14 @@ interface TaskDto {
 }
 const Report = () => {
     const [tasks, setTasks] = useState([]);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [formFields, setFormFields] = useState({
+        firstName: '',
+        lastName: '',
+        age: '',
+        description: '',
+        phone: '',
+    });
 
     useEffect(() => {
 
@@ -24,20 +32,28 @@ const Report = () => {
 
 
     const handleAcceptReport = (taskId: Number) => {
-        axios.post('/api/unauthorized/join-to-task', {id: taskId,
-        assignee_id: sessionStorage.getItem("id")})
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the tasks', error);
-            });
+        setIsFormOpen(true);
+    };
 
-        console.log(`Accepted report with ID: ${taskId}`);
+    const handleCloseForm = () => {
+        setIsFormOpen(false);
     };
 
     const handleReadDetails = (taskId: Number) => {
         console.log(`Read details for report with ID: ${taskId}`);
+    };
+
+    const handleFormChange = (e:any) => {
+        setFormFields({
+            ...formFields,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = () => {
+        console.log("Wysłano formularz:", formFields);
+        // Logika do wysyłania danych formularza
+        setIsFormOpen(false); // Zamknij formularz po wysłaniu
     };
 
 
@@ -65,7 +81,7 @@ const Report = () => {
                                         className="accept-button"
                                         onClick={() => handleAcceptReport(task["id"])}
                                     >
-                                        Zaakceptuj zgłoszenie
+                                        Prześlij ofertę
                                     </button>
                                         </>
                                     )}
@@ -84,6 +100,50 @@ const Report = () => {
                     </li>
                 ))}
             </ul>
+            {isFormOpen && (
+                <div className="overlay">
+                <div className="offer-form">
+                    <h2>Wyślij swoją ofertę</h2>
+                    <input
+                        name="firstName"
+                        value={formFields.firstName}
+                        onChange={handleFormChange}
+                        placeholder="Imię"
+                        className="form-input"
+                    />
+                    <input
+                        name="lastName"
+                        value={formFields.lastName}
+                        onChange={handleFormChange}
+                        placeholder="Nazwisko"
+                        className="form-input"
+                    />
+                    <input
+                        name="age"
+                        value={formFields.age}
+                        onChange={handleFormChange}
+                        placeholder="Wiek"
+                        className="form-input"
+                    />
+                    <textarea
+                        name="description"
+                        value={formFields.description}
+                        onChange={handleFormChange}
+                        placeholder="Opis"
+                        className="form-textarea"
+                    />
+                    <input
+                        name="phone"
+                        value={formFields.phone}
+                        onChange={handleFormChange}
+                        placeholder="Nr tel"
+                        className="form-input"
+                    />
+                    <button onClick={handleSubmit}>Wyślij</button>
+                    <button onClick={handleCloseForm}>Zamknij</button>
+                </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -18,4 +18,5 @@ public class AccountDto {
     private Role role = Role.USER;
     private String password;
     private String photoId;
+    private boolean enabled;
 }

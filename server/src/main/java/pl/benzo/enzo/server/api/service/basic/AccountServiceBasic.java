@@ -46,4 +46,8 @@ public class AccountServiceBasic {
                 .userDto(userDto)
                 .build();
     }
+
+    public void update(AccountEntity accountEntity){
+        accountRepository.save(accountEntity);
+    }
 }

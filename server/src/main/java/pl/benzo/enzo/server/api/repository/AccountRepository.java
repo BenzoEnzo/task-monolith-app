@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<AccountEntity,Long> {
     Optional<AccountEntity> findAccountEntityByMail(String mail);
-    AccountEntity findAccountEntityByMailAndPassword(String mail, String password);
+    AccountEntity findAccountEntityByMailAndPasswordAndEnabled(String mail, String password, boolean enabled);
 }

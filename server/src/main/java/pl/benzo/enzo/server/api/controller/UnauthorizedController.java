@@ -16,6 +16,7 @@ import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.ManageService;
 import pl.benzo.enzo.server.api.service.ServiceWithException;
+import pl.benzo.enzo.server.api.service.basic.LinkServiceBasic;
 import pl.benzo.enzo.server.api.service.logic.UploaderService;
 import pl.benzo.enzo.server.security.JWT;
 
@@ -30,6 +31,7 @@ public class UnauthorizedController {
     private final JWT jwt;
     private final ManageService manageService;
     private final UploaderService uploaderService;
+    private final LinkServiceBasic linkServiceBasic;
 
     @PostMapping(value = "/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUpUser(@RequestBody AccountDto accountDto){
@@ -100,6 +102,12 @@ public class UnauthorizedController {
     @GetMapping(value = "/profile-image/load/{fileName}")
     public ResponseEntity<Resource> getProfilePicture(@PathVariable String fileName) {
         return ResponseEntity.status(HttpStatus.OK).body(uploaderService.loadFile(fileName));
+    }
+
+    @GetMapping(value = "/account/confirm/{generatedValue}")
+    public ResponseEntity<?> confirmAccount(@PathVariable String generatedValue) {
+        linkServiceBasic.confirmAccount(generatedValue);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

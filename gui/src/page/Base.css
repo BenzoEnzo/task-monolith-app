@@ -387,3 +387,66 @@
     background-color: #ec971f;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.offer-form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1001;
+}
+
+.overlay-hidden {
+    display: none;
+}
+
+.offer-form h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.offer-form input[type="text"],
+.offer-form input[type="number"],
+.offer-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.offer-form textarea {
+    height: 100px;
+    resize: none;
+}
+
+.offer-form button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.offer-form button:hover {
+    opacity: 0.8;
+}
+

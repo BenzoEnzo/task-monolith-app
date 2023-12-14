@@ -29,7 +29,7 @@ const SignPanel = () => {
                 console.log('Login success', response);
             })
             .catch(error => {
-                setErrorMessage("Invalid Credentials ! Try again");
+                setErrorMessage("Invalid Credentials Or account doesnt confirmed");
                 setIsError(true);
                 console.error('Login failed', error);
             });

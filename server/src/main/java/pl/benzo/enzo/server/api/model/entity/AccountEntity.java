@@ -29,6 +29,7 @@ public class AccountEntity {
     private BigDecimal money = BigDecimal.ZERO;
     private Role role = Role.USER;
     private String photoId = String.valueOf(randomIDGen());
+    private Boolean enabled;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
