@@ -7,11 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pl.benzo.enzo.server.api.model.dto.AccountDto;
+import pl.benzo.enzo.server.api.model.dto.*;
 import pl.benzo.enzo.server.api.model.builder.EntitiesBuilder;
-import pl.benzo.enzo.server.api.model.dto.NotificationDto;
-import pl.benzo.enzo.server.api.model.dto.TaskDto;
-import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.logic.AccountService;
 import pl.benzo.enzo.server.api.service.logic.NotificationService;
 import pl.benzo.enzo.server.api.service.logic.TaskService;
@@ -69,6 +66,10 @@ public class ServiceWithException {
 
     public TaskDto joinToTask(TaskDto taskDto){
         return taskService.joinToTask(taskDto);
+    }
+
+    public ReadUserDto readUser(Long userId){
+        return userService.readUser(userId);
     }
 
 }

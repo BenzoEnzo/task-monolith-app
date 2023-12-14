@@ -110,6 +110,11 @@ public class UnauthorizedController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @GetMapping(value = "/read-user/{userId}")
+    public ResponseEntity<?> readUser(@PathVariable Long userId) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(service.readUser(userId));
+    }
 }
 
 

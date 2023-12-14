@@ -81,6 +81,8 @@ const PersonalNotification: React.FC = () => {
                                                 <span className="notification-section">
                                                     <span className="section-title">Autor:</span>
                                                     <span className="author">{notification.author_name}</span>
+                                                    <button className="profile-button">Zobacz Profil</button>
+                                                     <button className="reply-button">Odpowiedz</button>
                                                 </span>
                                                                                             <span className="notification-section">
                                                     <span className="section-title">Tytuł:</span>

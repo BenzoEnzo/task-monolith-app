@@ -73,3 +73,35 @@
     color: #555;
     resize: none;
 }
+
+.profile-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.reply-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.notification-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title, .author {
+    margin-right: 10px;
+}
