@@ -105,3 +105,8 @@
 .section-title, .author {
     margin-right: 10px;
 }
+
+.notification-list-container {
+    max-height: 600px;
+    overflow-y: auto;
+}

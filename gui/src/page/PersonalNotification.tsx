@@ -129,6 +129,7 @@ const PersonalNotification: React.FC = () => {
                                 <div className="overlay">
                                     <div className="offer-form">
                                         <h2>Wiadomości:</h2>
+                                        <div className="notification-list-container">
                                         <ul>
                                             {taskWithNotification.notifications.map((notification, nindex) => (
                                                 <li key={nindex}>
@@ -149,6 +150,7 @@ const PersonalNotification: React.FC = () => {
                                                 </li>
                                             ))}
                                         </ul>
+                                        </div>
                                         <button onClick={handleCloseNotifications}>Zamknij</button>
                                     </div>
                                 </div>
