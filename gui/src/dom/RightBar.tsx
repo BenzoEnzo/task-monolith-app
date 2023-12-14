@@ -31,7 +31,7 @@ const RightBar: React.FC = () => {
     const logout = async () => {
         try {
             sessionStorage.clear();
-            await axios.get('/api/manage/logout');
+            await axios.get('/api/unauthorized/logout');
             window.location.href = '/';
         } catch (error) {
             console.error("Błąd podczas wylogowywania:", error);

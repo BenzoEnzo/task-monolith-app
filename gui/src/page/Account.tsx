@@ -16,7 +16,9 @@ const Account = () => {
         const fetchAccountInfo = async () => {
             try {
                 const accountDto = { id: userId };
-                const response = await axios.post('/api/manage/my-account', accountDto);
+                const response = await axios.post('/api/unauthorized/my-account', accountDto
+
+                    );
                 setAccountInfo(response.data);
             } catch (error) {
                 setError('Error fetching account information');

@@ -116,6 +116,11 @@ public class UnauthorizedController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(service.readUser(userId));
     }
+
+    @GetMapping(value = "/logout")
+    public String killSession(){
+        return "redirect:/";
+    }
 }
 
 

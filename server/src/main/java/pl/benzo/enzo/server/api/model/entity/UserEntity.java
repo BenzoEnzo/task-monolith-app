@@ -36,5 +36,15 @@ public class UserEntity {
     @OneToMany(mappedBy = "assignee")
     private Set<TaskEntity> assignedTasks = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private Set<UserEntity> friends = new HashSet<>();
+
+    @ManyToMany(mappedBy = "friends")
+    private Set<UserEntity> friendOf = new HashSet<>();
 
 }

@@ -42,8 +42,9 @@ public class AccountServiceImpl implements AccountService{
             final LinkEntity linkEntity = new LinkEntity();
             linkEntity.setAccount(account);
             linkServiceBasic.createLinkForAccount(linkEntity);
-
-            emailServiceImpl.sendEmail(accountDto.getMail(), "Welcome: Area Account Confirmation", confirmationAddress + linkEntity.getGeneratedVal());
+            final String link = confirmationAddress + linkEntity.getGeneratedVal();
+            final String htmlBody = "<h1>Witaj!</h1><p>Kliknij <a href='" + link + "'>tutaj</a> aby aktywować swoje konto.</p>";
+            emailServiceImpl.sendEmail(accountDto.getMail(), "Welcome: Area Account Confirmation", htmlBody);
         }
     }
 
