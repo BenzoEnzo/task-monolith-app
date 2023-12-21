@@ -6,7 +6,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.benzo.enzo.server.api.service.SuccessService;
@@ -16,7 +15,6 @@ import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.dto.NotificationDto;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
-import pl.benzo.enzo.server.api.service.ServiceWithException;
 import pl.benzo.enzo.server.api.service.basic.LinkServiceBasic;
 import pl.benzo.enzo.server.api.service.logic.UploaderService;
 
@@ -25,7 +23,6 @@ import pl.benzo.enzo.server.api.service.logic.UploaderService;
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:3000")
 public class UserController {
-    private final ServiceWithException service;
     private final UploaderService uploaderService;
     private final LinkServiceBasic linkServiceBasic;
     private final SuccessService successService;
@@ -51,29 +48,29 @@ public class UserController {
 
     @PostMapping(value = "/create-task")
     public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto){
-        service.createTask(taskDto);
+        successService.createTask(taskDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(value = "/query-all-tasks")
     public ResponseEntity<?> queryAllTasks(){
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAllTasks());
+        return ResponseEntity.status(HttpStatus.OK).body(successService.findAllTasks());
     }
 
     @PostMapping(value = "/create-notification")
     public ResponseEntity<?> createTask(@RequestBody NotificationDto notificationDto){
-        service.createNotification(notificationDto);
+        successService.createNotification(notificationDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping(value = "/query-notification")
     public ResponseEntity<?> queryNotification(@RequestBody NotificationDto notificationDto){
-        return ResponseEntity.status(HttpStatus.OK).body(service.queryNotificationForTask(notificationDto));
+        return ResponseEntity.status(HttpStatus.OK).body(successService.queryNotificationForTask(notificationDto));
     }
 
     @PostMapping(value = "/join-to-task")
     public ResponseEntity<?> joinTask(@RequestBody TaskDto taskDto){
-        return ResponseEntity.status(HttpStatus.OK).body(service.joinToTask(taskDto));
+        return ResponseEntity.status(HttpStatus.OK).body(successService.joinToTask(taskDto));
     }
 
     @PostMapping(value = "/profile-image",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -95,7 +92,7 @@ public class UserController {
     @GetMapping(value = "/read-user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> readUser(@PathVariable Long userId) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(service.readUser(userId));
+                .body(successService.readUser(userId));
     }
 
     @GetMapping(value = "/logout")

@@ -18,9 +18,8 @@ const Report = () => {
 
     useEffect(() => {
 
-        axios.get('/api/user/query-all-tasks')
+        axios.get('/api/administrator/query-all-tasks')
             .then(response => {
-
                 setTasks(response.data);
             })
             .catch(error => {
