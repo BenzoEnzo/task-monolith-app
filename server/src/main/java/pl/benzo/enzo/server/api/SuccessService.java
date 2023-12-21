@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.benzo.enzo.server.api.model.builder.SuccessResponseBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.service.logic.*;
-import pl.benzo.enzo.server.security.JWT;
+import pl.benzo.enzo.server.security.Jwt;
 
 import java.util.Objects;
 
@@ -25,7 +25,7 @@ public class SuccessService {
     private final TaskService taskService;
     private final UploaderService uploaderService;
     private final UserService userService;
-    private final JWT jwt;
+    private final Jwt jwt;
 
     @ResponseBody
     public ResponseEntity<SuccessResponseBuilder> loggIn(AccountDto accountDto){
@@ -38,8 +38,21 @@ public class SuccessService {
         final SuccessResponseBuilder response = SuccessResponseBuilder.builder()
                 .httpStatus(HttpStatus.OK)
                 .msg("Zalogowano pomyślnie !")
-                .body(accountDto1).build();
+                .body(accountDto1)
+                .build();
 
         return new ResponseEntity<>(Objects.requireNonNull(response), headers, HttpStatus.OK);
+    }
+
+    @ResponseBody
+    public ResponseEntity<SuccessResponseBuilder> createAccount(AccountDto accountDto){
+        accountService.create(accountDto);
+
+        final SuccessResponseBuilder response = SuccessResponseBuilder.builder()
+                .httpStatus(HttpStatus.CREATED)
+                .msg("Zarejestrowano pomyślnie ! Konto należy potwierdzić na adresie mailowym")
+                .build();
+
+        return new ResponseEntity<>(Objects.requireNonNull(response), HttpStatus.CREATED);
     }
 }

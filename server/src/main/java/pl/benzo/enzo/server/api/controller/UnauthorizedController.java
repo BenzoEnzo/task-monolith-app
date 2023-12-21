@@ -3,15 +3,12 @@ package pl.benzo.enzo.server.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.benzo.enzo.server.api.SuccessService;
-import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.builder.SuccessResponseBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.dto.NotificationDto;
@@ -21,9 +18,6 @@ import pl.benzo.enzo.server.api.service.ManageService;
 import pl.benzo.enzo.server.api.service.ServiceWithException;
 import pl.benzo.enzo.server.api.service.basic.LinkServiceBasic;
 import pl.benzo.enzo.server.api.service.logic.UploaderService;
-import pl.benzo.enzo.server.security.JWT;
-
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/unauthorized")
@@ -37,9 +31,8 @@ public class UnauthorizedController {
     private final SuccessService successService;
 
     @PostMapping(value = "/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> signUpUser(@RequestBody AccountDto accountDto){
-        service.registration(accountDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<SuccessResponseBuilder> signUpUser(@RequestBody AccountDto accountDto){
+        return successService.createAccount(accountDto);
     }
     @PostMapping(value = "/sign-in", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<SuccessResponseBuilder> signInUser(@RequestBody AccountDto accountDto) {

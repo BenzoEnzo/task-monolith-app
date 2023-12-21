@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.configuration;
+package pl.benzo.enzo.server.security;
 
 
 import lombok.RequiredArgsConstructor;
