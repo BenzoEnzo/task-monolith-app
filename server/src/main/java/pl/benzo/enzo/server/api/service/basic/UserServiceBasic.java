@@ -14,4 +14,5 @@ public class UserServiceBasic {
     {
         return userRepository.findById(user_id).orElseThrow(() -> new IllegalArgumentException("User doesnt exist"));
     }
+
 }

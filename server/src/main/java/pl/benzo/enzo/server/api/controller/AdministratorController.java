@@ -14,11 +14,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/administrator")
+@RequestMapping(path = "/api/administrator", produces = {MediaType.APPLICATION_JSON_VALUE})
 @CrossOrigin("http://localhost:3000")
 public class AdministratorController {
     private final ServiceWithException service;
-    @GetMapping(value = "/que-users", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/que-users")
     @ResponseBody
     public ResponseEntity<?> readUsers(){
         Try<List<UserDto>> response = service.findAllUsers();
@@ -28,7 +28,7 @@ public class AdministratorController {
                 : ResponseEntity.internalServerError().body(response.getCause().getMessage());
     }
 
-    @PostMapping(value = "/query-tasks", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/query-tasks")
     public ResponseEntity<?> queryTasks(@RequestBody TaskDto taskDto){
         return ResponseEntity.status(HttpStatus.OK).body(service.findTasks(taskDto));
     }

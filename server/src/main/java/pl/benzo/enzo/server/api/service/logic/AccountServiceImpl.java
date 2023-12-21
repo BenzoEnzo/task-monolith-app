@@ -12,6 +12,8 @@ import pl.benzo.enzo.server.api.model.entity.LinkEntity;
 import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.api.repository.AccountRepository;
 import pl.benzo.enzo.server.api.service.basic.LinkServiceBasic;
+import pl.benzo.enzo.server.exception.account.AccountNotAllowedException;
+import pl.benzo.enzo.server.exception.account.MailAlreadyExistException;
 
 import java.util.Optional;
 
@@ -29,7 +31,7 @@ public class AccountServiceImpl implements AccountService{
         final Optional<AccountEntity> acc = accountRepository.findAccountEntityByMail(accountDto.getMail());
 
         if(acc.isPresent()){
-            throw new IllegalArgumentException("Konto o podanym mailu już istnieje");
+            throw new MailAlreadyExistException("Mail: " + accountDto.getMail() + " jest już użytkowany");
         } else {
             final AccountEntity account = new AccountEntity();
             final UserEntity user = new UserEntity();
@@ -53,7 +55,7 @@ public class AccountServiceImpl implements AccountService{
         final AccountEntity acc = accountRepository.findAccountEntityByMailAndPasswordAndEnabled
                 (accountDto.getMail(), accountDto.getPassword(), false); //TODO must be true, for testing = false
         if(acc == null){
-            throw new IllegalArgumentException("Nie znaleziono danych użytkownika, lub nie potwierdzono konta");
+            throw new AccountNotAllowedException("Wprowadzono błędne hasło dla: " + accountDto.getMail());
         } else {
             AccountDto accDto = new AccountDto();
             accDto.setMail(acc.getMail());
