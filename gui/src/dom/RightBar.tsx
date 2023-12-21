@@ -5,6 +5,8 @@ import CreateTask from "../page/CreateTask";
 import PersonalTasks from "../page/PersonalTasks";
 import CreateNotification from "../page/CreateNotification";
 import PersonalNotification from "../page/PersonalNotification";
+import ListFriends from "../page/ListFriends";
+import ListInvitations from "../page/ListInvitations";
 import QueryUsers from "../page/QueryUsers";
 import axios from "axios";
 
@@ -12,6 +14,7 @@ import axios from "axios";
 const RightBar: React.FC = () => {
     const [activeTab, setActiveTab] = useState('account');
     const [notificationsOpen, setNotificationsOpen] = useState(false);
+    const [relationsOpen, setRelationsOpen] = useState(false);
     const [reportsOpen, setReportsOpen] = useState(false);
     const fileName = sessionStorage.getItem("photoId");
     const usrName = sessionStorage.getItem("name");
@@ -26,6 +29,10 @@ const RightBar: React.FC = () => {
 
     const toggleNotifications = () => {
         setNotificationsOpen(!notificationsOpen);
+    };
+
+    const toggleRelations = () => {
+        setRelationsOpen(!relationsOpen);
     };
 
     const logout = async () => {
@@ -76,6 +83,10 @@ const RightBar: React.FC = () => {
                 return reportsOpen ? null : <PersonalNotification />;
             case 'create-notification':
                 return reportsOpen ? null : <CreateNotification/>;
+            case 'invitations':
+                return relationsOpen ? null : <ListInvitations/>;
+            case 'friends':
+                return relationsOpen ? null : <ListFriends/>;
             case 'ranking':
                 return <QueryUsers/>;
             default:
@@ -112,8 +123,15 @@ const RightBar: React.FC = () => {
                             </ul>
                         )}
                     </li>
+                    <li onClick={toggleRelations}>Relacje
+                        {relationsOpen && (
+                            <ul className="submenu">
+                                <li onClick={() => handleTabClick('invitations')}>Zaproszenia</li>
+                                <li onClick={() => handleTabClick('friends')}>Lista znajomych</li>
+                            </ul>
+                        )}
+                    </li>
                     <li onClick={() => handleTabClick('ranking')}>Ranking</li>
-                    <li onClick={() => handleTabClick('ranking')}>Relacje</li>
                     <li onClick={() => logout()}>Wyloguj</li>
                 </ul>
             </div>

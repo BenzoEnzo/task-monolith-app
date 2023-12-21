@@ -15,4 +15,5 @@ public class NotificationDto {
     private Long author_id;
     private String author_name;
     private Long addressed_to;
+    private Boolean isAccepted;
 }
