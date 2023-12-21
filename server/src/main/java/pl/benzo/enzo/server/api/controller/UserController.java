@@ -55,11 +55,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping(value = "/query-tasks/{creator_id}")
-    public ResponseEntity<?> queryTasks(@PathVariable Long creator_id){
-        return successService.getAllPersonalTasks(creator_id);
-    }
-
     @GetMapping(value = "/query-all-tasks")
     public ResponseEntity<?> queryAllTasks(){
         return ResponseEntity.status(HttpStatus.OK).body(service.findAllTasks());

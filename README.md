@@ -1,4 +1,9 @@
-# task-monolith-app 
+# task-monolith-app
+- Obsługa własnych wyjątków 
+- Naprawiona autoryzacja/autentykacja
+002
+
+
 - Rejestracja + potwierdzenie założenia konta na adresie mailowym
 - Edycja profilu użytkownika + możliwość dodawania zdjęć
 - Ranking użytkowników, biorąc pod uwagę ich punkty, które są przyznawane za wykonane zadania

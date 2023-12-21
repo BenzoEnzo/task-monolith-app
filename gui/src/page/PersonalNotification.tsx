@@ -36,7 +36,11 @@ const PersonalNotification: React.FC = () => {
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
     useEffect(() => {
-        axios.post('/api/user/query-tasks', { creator_id: userId })
+        axios.get(`/api/administrator/query-tasks/${userId}`, {
+            headers: {
+                Authorization: sessionStorage.getItem("authToken")
+            }
+        })
             .then(response => {
                 const fetchedTasks = response.data as Task[];
                 return Promise.all(fetchedTasks.map(task =>
