@@ -26,7 +26,6 @@ public class ServiceWithException {
     private final static Logger logger = LoggerFactory.getLogger(ServiceWithException.class);
 
     private final UserService userService;
-    private final AccountService accountService;
     private final TaskService taskService;
     private final NotificationService notificationService;
 
@@ -41,16 +40,6 @@ public class ServiceWithException {
 
     public Set<TaskDto> findAllTasks(){
         return taskService.queryAllTasks();
-    }
-    public void registration(AccountDto accountDto){
-        accountService.create(accountDto);
-    }
-    public AccountDto loggIn(AccountDto accountDto){
-        return accountService.loggIn(accountDto);
-    }
-
-    public void createUser(UserDto userDto){
-        userService.create(userDto);
     }
 
     public void createTask(TaskDto taskDto){

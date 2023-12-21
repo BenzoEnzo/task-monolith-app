@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
@@ -29,6 +30,7 @@ public class AdministratorController {
     }
 
     @PostMapping(value = "/query-tasks")
+    @ResponseBody
     public ResponseEntity<?> queryTasks(@RequestBody TaskDto taskDto){
         return ResponseEntity.status(HttpStatus.OK).body(service.findTasks(taskDto));
     }

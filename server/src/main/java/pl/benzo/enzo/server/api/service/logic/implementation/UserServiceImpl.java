@@ -18,6 +18,7 @@ import pl.benzo.enzo.server.api.service.basic.AccountServiceBasic;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
 import pl.benzo.enzo.server.api.service.logic.TaskService;
 import pl.benzo.enzo.server.api.service.logic.UserService;
+import pl.benzo.enzo.server.exception.user.UserAuthorizationException;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,8 +41,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(UserDto userDto) {
+    public void update(UserDto userDto) {
         final Optional<UserEntity> userEntity = userRepository.findById(userDto.getUser_id());
+
+        if(userEntity.isEmpty()){
+            throw new UserAuthorizationException("Nie można zaaktualizować danych osobowych, użytkownik: " + userDto.getUser_id());
+        }
+
         userEntity.ifPresent(entity -> entity.setName(userDto.getName()));
         userRepository.save(userEntity.get());
     }

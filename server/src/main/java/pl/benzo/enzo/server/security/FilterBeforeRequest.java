@@ -41,14 +41,12 @@ public class FilterBeforeRequest extends OncePerRequestFilter {
             LOGGER.info("Pobrano mail: " + mail);
         }
 
-
-
         if (mail != null && jwt.validateToken(token, mail)) {
 
             final Role role = accountServiceBasic.findAccountByMail(mail).getRole();
             LOGGER.info("Etap 2, pobrano role:" + role);
             Collection<GrantedAuthority> getRoleAuthorities = new ArrayList<>();
-            getRoleAuthorities.add((GrantedAuthority) () -> String.valueOf(Role.USER));
+            getRoleAuthorities.add((GrantedAuthority) () -> String.valueOf(role));
 
             Authentication authToken = new UsernamePasswordAuthenticationToken(mail, null, getRoleAuthorities);
 

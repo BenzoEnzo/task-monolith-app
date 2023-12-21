@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.api;
+package pl.benzo.enzo.server.api.service;
 
 
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.builder.SuccessResponseBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
+import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.logic.*;
 import pl.benzo.enzo.server.security.Jwt;
 
@@ -51,6 +53,24 @@ public class SuccessService {
         final SuccessResponseBuilder response = SuccessResponseBuilder.builder()
                 .httpStatus(HttpStatus.CREATED)
                 .msg("Zarejestrowano pomyślnie ! Konto należy potwierdzić na adresie mailowym")
+                .build();
+
+        return new ResponseEntity<>(Objects.requireNonNull(response), HttpStatus.CREATED);
+    }
+
+    @ResponseBody
+    public ResponseEntity<PersonalInformationBuilder> userAuthorized(AccountDto accountDto){
+        final PersonalInformationBuilder response = accountService.getInformationAboutMe(accountDto);
+        return new ResponseEntity<>(Objects.requireNonNull(response), HttpStatus.OK);
+    }
+
+    @ResponseBody
+    public ResponseEntity<SuccessResponseBuilder> editAccountData(UserDto userDto){
+        userService.update(userDto);
+
+        final SuccessResponseBuilder response = SuccessResponseBuilder.builder()
+                .httpStatus(HttpStatus.CREATED)
+                .msg("Dane zostały zaaktualizowane !")
                 .build();
 
         return new ResponseEntity<>(Objects.requireNonNull(response), HttpStatus.CREATED);
