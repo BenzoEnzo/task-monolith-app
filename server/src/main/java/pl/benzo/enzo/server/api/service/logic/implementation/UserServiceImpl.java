@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.api.service.logic;
+package pl.benzo.enzo.server.api.service.logic.implementation;
 
 
 import jakarta.transaction.Transactional;
@@ -16,6 +16,8 @@ import pl.benzo.enzo.server.api.model.mapper.TaskMapper;
 import pl.benzo.enzo.server.api.repository.UserRepository;
 import pl.benzo.enzo.server.api.service.basic.AccountServiceBasic;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
+import pl.benzo.enzo.server.api.service.logic.TaskService;
+import pl.benzo.enzo.server.api.service.logic.UserService;
 
 import java.util.List;
 import java.util.Objects;

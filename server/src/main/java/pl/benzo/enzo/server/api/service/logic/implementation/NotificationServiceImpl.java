@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.api.service.logic;
+package pl.benzo.enzo.server.api.service.logic.implementation;
 
 
 import jakarta.transaction.Transactional;
@@ -11,13 +11,14 @@ import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.api.repository.NotificationRepository;
 import pl.benzo.enzo.server.api.service.basic.TaskServiceBasic;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
+import pl.benzo.enzo.server.api.service.logic.NotificationService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class NotificationServiceImpl implements NotificationService{
+public class NotificationServiceImpl implements NotificationService {
     private final NotificationRepository notificationRepository;
     private final TaskServiceBasic taskServiceBasic;
     private final UserServiceBasic userServiceBasic;

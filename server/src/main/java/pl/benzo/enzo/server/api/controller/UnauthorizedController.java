@@ -31,7 +31,6 @@ import java.util.Objects;
 @CrossOrigin("http://localhost:3000")
 public class UnauthorizedController {
     private final ServiceWithException service;
-    private final JWT jwt;
     private final ManageService manageService;
     private final UploaderService uploaderService;
     private final LinkServiceBasic linkServiceBasic;

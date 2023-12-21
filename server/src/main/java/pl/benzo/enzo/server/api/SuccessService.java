@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.benzo.enzo.server.api.model.builder.SuccessResponseBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
-import pl.benzo.enzo.server.api.service.logic.AccountService;
+import pl.benzo.enzo.server.api.service.logic.*;
 import pl.benzo.enzo.server.security.JWT;
 
 import java.util.Objects;
@@ -20,6 +20,11 @@ import java.util.Objects;
 @Slf4j
 public class SuccessService {
     private final AccountService accountService;
+    private final EmailService emailService;
+    private final NotificationService notificationService;
+    private final TaskService taskService;
+    private final UploaderService uploaderService;
+    private final UserService userService;
     private final JWT jwt;
 
     @ResponseBody

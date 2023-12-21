@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.api.service.logic;
+package pl.benzo.enzo.server.api.service.logic.implementation;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import pl.benzo.enzo.server.api.service.logic.EmailService;
 
 @Service
 @RequiredArgsConstructor
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
