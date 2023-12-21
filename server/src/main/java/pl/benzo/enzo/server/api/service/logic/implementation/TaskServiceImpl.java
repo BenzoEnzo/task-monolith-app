@@ -12,6 +12,7 @@ import pl.benzo.enzo.server.api.repository.NotificationRepository;
 import pl.benzo.enzo.server.api.repository.TaskRepository;
 import pl.benzo.enzo.server.api.service.basic.UserServiceBasic;
 import pl.benzo.enzo.server.api.service.logic.TaskService;
+import pl.benzo.enzo.server.exception.task.TaskIsNotAvailableException;
 import pl.benzo.enzo.server.util.enumeration.Status;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDto> queryTasks(Long creator_id) {
         final List<TaskEntity> taskEntity = taskRepository.findAllByCreator_Id(creator_id);
+
         return taskEntity.stream().map(taskMapper::convertToTaskDto)
                 .collect(Collectors.toList());
     }
@@ -54,11 +56,11 @@ public class TaskServiceImpl implements TaskService {
 
     public TaskDto joinToTask(TaskDto taskDto){
         final TaskEntity taskEntity = taskRepository.findById(taskDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Bad request"));
+                .orElseThrow(() -> new TaskIsNotAvailableException("Problem z taskiem o id: " + taskDto.getId()));
 
         taskEntity.setAssignee(userServiceBasic.findUserById(taskDto.getAssignee_id()));
         taskEntity.setStatus(Status.WAITING_FOR_ACCEPT);
-       NotificationEntity notificationEntity = new NotificationEntity();
+        NotificationEntity notificationEntity = new NotificationEntity();
         notificationEntity.setTitle("Ktoś odpowiedział na twoje zgłoszenie");
         notificationEntity.setContent(taskDto.getDescription());
         List<NotificationEntity> notificationEntityList = taskEntity.getNotifications();

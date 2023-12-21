@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.ServiceWithException;
+import pl.benzo.enzo.server.api.service.SuccessService;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 public class AdministratorController {
     private final ServiceWithException service;
+    private final SuccessService successService;
     @GetMapping(value = "/que-users")
     @ResponseBody
     public ResponseEntity<?> readUsers(){
@@ -29,9 +31,9 @@ public class AdministratorController {
                 : ResponseEntity.internalServerError().body(response.getCause().getMessage());
     }
 
-    @PostMapping(value = "/query-tasks")
+    @GetMapping(value = "/query-tasks/{creator_id}")
     @ResponseBody
-    public ResponseEntity<?> queryTasks(@RequestBody TaskDto taskDto){
-        return ResponseEntity.status(HttpStatus.OK).body(service.findTasks(taskDto));
+    public ResponseEntity<?> queryTasks(@PathVariable Long creator_id){
+        return successService.getAllPersonalTasks(creator_id);
     }
 }

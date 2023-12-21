@@ -35,7 +35,7 @@ public class UserController {
         return successService.createAccount(accountDto);
     }
     @PostMapping(value = "/sign-in")
-        public ResponseEntity<SuccessResponseBuilder> signInUser(@RequestBody AccountDto accountDto) {
+        public ResponseEntity<?> signInUser(@RequestBody AccountDto accountDto) {
             return successService.loggIn(accountDto);
         }
 
@@ -55,9 +55,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping(value = "/query-tasks")
-    public ResponseEntity<?> queryTasks(@RequestBody TaskDto taskDto){
-        return ResponseEntity.status(HttpStatus.OK).body(service.findTasks(taskDto));
+    @GetMapping(value = "/query-tasks/{creator_id}")
+    public ResponseEntity<?> queryTasks(@PathVariable Long creator_id){
+        return successService.getAllPersonalTasks(creator_id);
     }
 
     @GetMapping(value = "/query-all-tasks")

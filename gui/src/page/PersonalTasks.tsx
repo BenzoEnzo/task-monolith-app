@@ -3,10 +3,13 @@ import axios from 'axios';
 
 const PersonalTasks = () => {
     const [tasks, setTasks] = useState([]);
-
+    const creator_id = sessionStorage.getItem("id");
     useEffect(() => {
 
-        axios.post('/api/administrator/query-tasks', {creator_id: sessionStorage.getItem("id")})
+        axios.get(`/api/administrator/query-tasks/${creator_id}`, {
+           headers : { Authorization: sessionStorage.getItem("authToken")
+           }
+        })
             .then(response => {
                 setTasks(response.data);
             })

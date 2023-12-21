@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.builder.SuccessResponseBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
+import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.service.logic.*;
 import pl.benzo.enzo.server.security.Jwt;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -30,7 +32,7 @@ public class SuccessService {
     private final Jwt jwt;
 
     @ResponseBody
-    public ResponseEntity<SuccessResponseBuilder> loggIn(AccountDto accountDto){
+    public ResponseEntity<?> loggIn(AccountDto accountDto){
         final AccountDto accountDto1 = accountService.loggIn(accountDto);
 
         final String token = jwt.generateToken(accountDto.getMail());
@@ -74,5 +76,11 @@ public class SuccessService {
                 .build();
 
         return new ResponseEntity<>(Objects.requireNonNull(response), HttpStatus.CREATED);
+    }
+
+    @ResponseBody
+    public ResponseEntity<?> getAllPersonalTasks(Long creator_id){
+        final List<TaskDto> response = taskService.queryTasks(creator_id);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 }

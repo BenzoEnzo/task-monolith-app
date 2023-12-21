@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import pl.benzo.enzo.server.security.FilterBeforeRequest;
+import pl.benzo.enzo.server.util.enumeration.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -34,7 +35,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(mvcMatcherBuilder.pattern(API)).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern(SWAGGER_UI)).permitAll()
                                 .requestMatchers(mvcMatcherBuilder.pattern(V_3)).permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().hasAuthority("USER")
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/api/user/logout")
