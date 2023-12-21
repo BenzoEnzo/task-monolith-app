@@ -19,8 +19,8 @@ export function validateAccount(mail: string, password: string): Promise<any> {
             }
         })
         .then(data => {
-            sessionStorage.setItem("id", data.id);
-            sessionStorage.setItem("photoId", data.photoId);
+            sessionStorage.setItem("id", data.body.id);
+            sessionStorage.setItem("photoId", data.body.photoId);
             return data;
         });
 }

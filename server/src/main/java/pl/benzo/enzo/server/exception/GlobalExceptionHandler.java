@@ -6,8 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import pl.benzo.enzo.server.api.model.dto.ErrorResponseDto;
-import pl.benzo.enzo.server.exception.account.MailAlreadyExistException;
+import pl.benzo.enzo.server.api.model.builder.ErrorResponseBuilder;
 
 import java.time.LocalDateTime;
 
@@ -15,13 +14,13 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponseDto> handleNotAllowedAccountException(RuntimeException exception, WebRequest webRequest){
-        final ErrorResponseDto errorResponseDto = ErrorResponseDto.builder()
+    public ResponseEntity<ErrorResponseBuilder> handleNotAllowedAccountException(RuntimeException exception, WebRequest webRequest){
+        final ErrorResponseBuilder errorResponseBuilder = ErrorResponseBuilder.builder()
                 .message(exception.getMessage())
                 .apiPath(webRequest.getDescription(false))
                 .statusCode(HttpStatus.BAD_REQUEST)
                 .at(LocalDateTime.now()).build();
 
-        return new ResponseEntity<>(errorResponseDto,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponseBuilder,HttpStatus.BAD_REQUEST);
     }
 }

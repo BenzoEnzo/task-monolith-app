@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.benzo.enzo.server.api.SuccessService;
 import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
+import pl.benzo.enzo.server.api.model.builder.SuccessResponseBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.dto.NotificationDto;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
@@ -33,6 +35,7 @@ public class UnauthorizedController {
     private final ManageService manageService;
     private final UploaderService uploaderService;
     private final LinkServiceBasic linkServiceBasic;
+    private final SuccessService successService;
 
     @PostMapping(value = "/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUpUser(@RequestBody AccountDto accountDto){
@@ -40,17 +43,8 @@ public class UnauthorizedController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @PostMapping(value = "/sign-in", produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<?> signInUser(@RequestBody AccountDto accountDto) {
-        final AccountDto response = service.loggIn(accountDto);
-
-        if(response != null){
-            final String token = jwt.generateToken(accountDto.getMail());
-            final HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization","Bearer " + token);
-            return new ResponseEntity<>(Objects.requireNonNull(response), headers, HttpStatus.OK);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-          }
+        public ResponseEntity<SuccessResponseBuilder> signInUser(@RequestBody AccountDto accountDto) {
+            return successService.loggIn(accountDto);
         }
     @PatchMapping(value = "/edit-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createUserData(@RequestBody UserDto userDto){

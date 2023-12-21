@@ -1,4 +1,4 @@
-package pl.benzo.enzo.server.api.model.dto;
+package pl.benzo.enzo.server.api.model.builder;
 
 
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
-public class ErrorResponseDto {
+public class ErrorResponseBuilder {
     private String apiPath;
     private String message;
     private HttpStatus statusCode;
