@@ -30,7 +30,7 @@ const CreateNotification: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/unauthorized/create-notification', {
+            const response = await fetch('/api/user/create-notification', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

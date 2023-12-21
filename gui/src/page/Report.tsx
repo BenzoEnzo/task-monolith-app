@@ -18,7 +18,7 @@ const Report = () => {
 
     useEffect(() => {
 
-        axios.get('/api/unauthorized/query-all-tasks')
+        axios.get('/api/user/query-all-tasks')
             .then(response => {
 
                 setTasks(response.data);

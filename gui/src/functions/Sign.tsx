@@ -1,5 +1,5 @@
 export function validateAccount(mail: string, password: string): Promise<any> {
-    return fetch("/api/unauthorized/sign-in", {
+    return fetch("/api/user/sign-in", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -26,7 +26,7 @@ export function validateAccount(mail: string, password: string): Promise<any> {
 }
 
 export function registration(mail: string, password: string): Promise<any> {
-    return fetch("/api/unauthorized/sign-up", {
+    return fetch("/api/user/sign-up", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

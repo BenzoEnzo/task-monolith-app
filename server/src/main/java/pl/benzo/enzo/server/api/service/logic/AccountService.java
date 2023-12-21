@@ -8,4 +8,6 @@ public interface AccountService {
     AccountDto loggIn(AccountDto accountDto);
 
     AccountDto update(AccountDto accountDto);
+
+    PersonalInformationBuilder getInformationAboutMe(AccountDto accountDto);
 }

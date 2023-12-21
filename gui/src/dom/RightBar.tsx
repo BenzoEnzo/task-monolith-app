@@ -31,7 +31,7 @@ const RightBar: React.FC = () => {
     const logout = async () => {
         try {
             sessionStorage.clear();
-            await axios.get('/api/unauthorized/logout');
+            await axios.get('/api/user/logout');
             window.location.href = '/';
         } catch (error) {
             console.error("Błąd podczas wylogowywania:", error);
@@ -46,7 +46,7 @@ const RightBar: React.FC = () => {
         const loadImage = async () => {
             try {
                 const dataIMG = fileName + ".jpeg";
-                const response = await axios.get(`/api/unauthorized/profile-image/load/${dataIMG}`, {responseType: 'arraybuffer'});
+                const response = await axios.get(`/api/user/profile-image/load/${dataIMG}`, {responseType: 'arraybuffer'});
                 const base64Image = `data:image/jpeg;base64,${btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
                 setImageSrc(base64Image);
             } catch (error) {

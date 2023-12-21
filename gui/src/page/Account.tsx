@@ -16,7 +16,7 @@ const Account = () => {
         const fetchAccountInfo = async () => {
             try {
                 const accountDto = { id: userId };
-                const response = await axios.post('/api/unauthorized/my-account', accountDto
+                const response = await axios.post('/api/user/my-account', accountDto
 
                     );
                 setAccountInfo(response.data);
@@ -41,7 +41,7 @@ const Account = () => {
         formData.append('file', selectedFile);
         formData.append('photoId', fileName + ".jpeg");
         try {
-            await axios.post('/api/unauthorized/profile-image', formData);
+            await axios.post('/api/user/profile-image', formData);
             window.location.reload();
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -53,7 +53,7 @@ const Account = () => {
 
     const handlePatchName = async () => {
         try {
-            const response = await axios.patch('/api/unauthorized/edit-data', { user_id: userId, name: editedName });
+            const response = await axios.patch('/api/user/edit-data', { user_id: userId, name: editedName });
             // @ts-ignore
             setAccountInfo({...account, userDto: {...account.userDto, name: editedName}});
             setEditMode(false);

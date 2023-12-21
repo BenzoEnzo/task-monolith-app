@@ -38,7 +38,7 @@ const CreateTask: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/unauthorized/create-task', {
+            const response = await fetch('/api/user/create-task', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

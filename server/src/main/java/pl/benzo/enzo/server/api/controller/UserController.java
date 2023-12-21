@@ -8,36 +8,41 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import pl.benzo.enzo.server.api.SuccessService;
+import pl.benzo.enzo.server.api.service.SuccessService;
+import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.builder.SuccessResponseBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.dto.NotificationDto;
 import pl.benzo.enzo.server.api.model.dto.TaskDto;
 import pl.benzo.enzo.server.api.model.dto.UserDto;
-import pl.benzo.enzo.server.api.service.ManageService;
 import pl.benzo.enzo.server.api.service.ServiceWithException;
 import pl.benzo.enzo.server.api.service.basic.LinkServiceBasic;
 import pl.benzo.enzo.server.api.service.logic.UploaderService;
 
 @RestController
-@RequestMapping("/api/unauthorized")
+@RequestMapping(path = "/api/user", produces = {MediaType.APPLICATION_JSON_VALUE})
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:3000")
-public class UnauthorizedController {
+public class UserController {
     private final ServiceWithException service;
-    private final ManageService manageService;
     private final UploaderService uploaderService;
     private final LinkServiceBasic linkServiceBasic;
     private final SuccessService successService;
 
-    @PostMapping(value = "/sign-up", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sign-up")
     public ResponseEntity<SuccessResponseBuilder> signUpUser(@RequestBody AccountDto accountDto){
         return successService.createAccount(accountDto);
     }
-    @PostMapping(value = "/sign-in", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sign-in")
         public ResponseEntity<SuccessResponseBuilder> signInUser(@RequestBody AccountDto accountDto) {
             return successService.loggIn(accountDto);
         }
+
+    @PostMapping(value = "/my-account")
+    public ResponseEntity<PersonalInformationBuilder> accountMe(@RequestBody AccountDto accountDto){
+        return successService.userAuthorized(accountDto);
+    }
+
     @PatchMapping(value = "/edit-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createUserData(@RequestBody UserDto userDto){
         service.createUser(userDto);
@@ -58,11 +63,6 @@ public class UnauthorizedController {
     @GetMapping(value = "/query-all-tasks", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> queryAllTasks(){
         return ResponseEntity.status(HttpStatus.OK).body(service.findAllTasks());
-    }
-
-    @PostMapping(value = "/my-account", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> accountMe(@RequestBody AccountDto accountDto){
-        return ResponseEntity.status(HttpStatus.OK).body(manageService.getInformationAboutMe(accountDto));
     }
 
     @PostMapping(value = "/create-notification", produces = MediaType.APPLICATION_JSON_VALUE)

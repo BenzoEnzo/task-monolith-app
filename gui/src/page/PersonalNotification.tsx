@@ -36,11 +36,11 @@ const PersonalNotification: React.FC = () => {
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
     useEffect(() => {
-        axios.post('/api/unauthorized/query-tasks', { creator_id: userId })
+        axios.post('/api/user/query-tasks', { creator_id: userId })
             .then(response => {
                 const fetchedTasks = response.data as Task[];
                 return Promise.all(fetchedTasks.map(task =>
-                    axios.post('/api/unauthorized/query-notification', { task_id: task.id })
+                    axios.post('/api/user/query-notification', { task_id: task.id })
                         .then(notificationResponse => ({
                             task: task,
                             notifications: notificationResponse.data as NotificationDto[]
@@ -68,7 +68,7 @@ const PersonalNotification: React.FC = () => {
         setOpenDetail(false);
     }
     const readUserProfile = (userId: any) => {
-        axios.get(`/api/unauthorized/read-user/${userId}`)
+        axios.get(`/api/user/read-user/${userId}`)
             .then(response => {
                 setUserProfile(response.data);
                 setOpenTaskId(null);

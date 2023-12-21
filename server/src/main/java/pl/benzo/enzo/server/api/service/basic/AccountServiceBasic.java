@@ -10,12 +10,13 @@ import pl.benzo.enzo.server.api.model.dto.UserDto;
 import pl.benzo.enzo.server.api.model.entity.AccountEntity;
 import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.api.repository.AccountRepository;
+import pl.benzo.enzo.server.exception.user.UserAuthorizationException;
 
 @Service
 @RequiredArgsConstructor
 public class AccountServiceBasic {
     private final AccountRepository accountRepository;
-    private final UserServiceBasic userServiceBasic;
+
     public AccountDto findAccountByMail(String mail){
         final AccountEntity accountEntity = accountRepository
                 .findAccountEntityByMail(mail)
@@ -28,7 +29,7 @@ public class AccountServiceBasic {
     public AccountEntity findAccountById(Long id){
         return accountRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("NULLABLE ACCOUNT"));
+                .orElseThrow(() -> new UserAuthorizationException("Zostałeś wylogowany ! Zaloguj się ponownie"));
     }
 
     public PersonalInformationBuilder getInformationAboutMe(Long id){

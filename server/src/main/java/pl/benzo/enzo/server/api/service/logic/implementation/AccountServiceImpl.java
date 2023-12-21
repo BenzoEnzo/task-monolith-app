@@ -5,11 +5,13 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import pl.benzo.enzo.server.api.model.builder.PersonalInformationBuilder;
 import pl.benzo.enzo.server.api.model.dto.AccountDto;
 import pl.benzo.enzo.server.api.model.entity.AccountEntity;
 import pl.benzo.enzo.server.api.model.entity.LinkEntity;
 import pl.benzo.enzo.server.api.model.entity.UserEntity;
 import pl.benzo.enzo.server.api.repository.AccountRepository;
+import pl.benzo.enzo.server.api.service.basic.AccountServiceBasic;
 import pl.benzo.enzo.server.api.service.basic.LinkServiceBasic;
 import pl.benzo.enzo.server.api.service.logic.AccountService;
 import pl.benzo.enzo.server.exception.account.AccountNotAllowedException;
@@ -23,6 +25,7 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final LinkServiceBasic linkServiceBasic;
     private final EmailServiceImpl emailServiceImpl;
+    private final AccountServiceBasic accountServiceBasic;
     @Value("${app.account.confirmation.api}")
     private String confirmationAddress;
     @Override
@@ -79,5 +82,10 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(acc);
 
         return accountDto;
+    }
+
+    @Override
+    public PersonalInformationBuilder getInformationAboutMe(AccountDto accountDto){
+        return accountServiceBasic.getInformationAboutMe(accountDto.getId());
     }
 }

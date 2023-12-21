@@ -16,7 +16,7 @@ import pl.benzo.enzo.server.security.FilterBeforeRequest;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    private static final String API = "/api/unauthorized/**";
+    private static final String API = "/api/user/**";
     private static final String SWAGGER_UI = "/swagger-ui/**";
     private static final String V_3 = "/v3/**";
     private final FilterBeforeRequest filterBeforeRequest;
@@ -37,7 +37,7 @@ public class SecurityConfiguration {
                                 .anyRequest().authenticated()
                 )
                 .logout((logout) -> logout
-                        .logoutUrl("/api/unauthorized/logout")
+                        .logoutUrl("/api/user/logout")
                         .clearAuthentication(true)
                         .permitAll());
 
